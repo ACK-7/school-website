@@ -1,0 +1,159 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.videoBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.blackOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 50, 50, 0.4);
+}
+
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 1200px;
+}
+
+.texttop {
+  font-size: 3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  margin: 0 0 0.5rem;
+}
+
+.textbottom {
+  font-size: 8rem;
+  font-weight: bold;
+  font-family: 'Times New Roman', serif;
+  color: black;
+  text-shadow: 2px 2px 5px rgba(255, 204, 0, 0.7);
+  opacity: 0;
+  margin: 0 0 1.5rem;
+}
+
+.bigLetter {
+  font-size: 4rem;
+  font-weight: bold;
+  color: white;
+}
+
+.btn {
+  padding: 0.8rem 2rem;
+  font-size: 1.2rem;
+  background-color: #ff9900;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #ff7700;
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 1200px) {
+  .texttop {
+    font-size: 2.5rem;
+  }
+  
+  .textbottom {
+    font-size: 6rem;
+  }
+  
+  .bigLetter {
+    font-size: 3.5rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hero {
+    height: 80vh;
+  }
+  
+  .texttop {
+    font-size: 2rem;
+  }
+  
+  .textbottom {
+    font-size: 4.5rem;
+  }
+  
+  .bigLetter {
+    font-size: 2.8rem;
+  }
+  
+  .btn {
+    padding: 0.7rem 1.8rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .overlay {
+    width: 95%;
+    padding: 15px;
+  }
+  
+  .texttop {
+    font-size: 1.5rem;
+  }
+  
+  .textbottom {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .bigLetter {
+    font-size: 2.2rem;
+  }
+  
+  .btn {
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .texttop {
+    font-size: 1.2rem;
+  }
+  
+  .textbottom {
+    font-size: 2.5rem;
+  }
+  
+  .bigLetter {
+    font-size: 1.8rem;
+  }
+}

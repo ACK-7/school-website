@@ -1,0 +1,203 @@
+   .adminCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem 0;
+   }
+   .headteacherCards{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem 0;
+    text-align: center;
+   }
+  
+   .headteacher{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+   }
+   
+   .headteacherDescription{
+    text-align: center;
+   }
+  /* General section styling */
+  .contentSection {
+    padding: 4rem 0;
+    background: #f9f9f9;
+    text-align: center;
+  }
+  
+  .contentSection h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #222;
+  }
+  
+  .contentSection p {
+    font-size: 1.1rem;
+    color: #555;
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+  
+  /* Admin Section */
+  .adminSection {
+    background: #f0f4f8;
+  }
+  
+  .adminCard {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    background: white;
+  }
+  
+  .adminCard:hover {
+    transform: translateY(-10px);
+  }
+  
+  .adminCard img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .adminOverlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    transition: background 0.3s ease;
+  }
+  
+  .adminOverlay h5 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  .adminOverlay p {
+    margin: 0.25rem 0 0;
+    font-size: 0.95rem;
+  }
+  
+  /* Headteacher Section */
+  .headteacherSection {
+    background-color: #ffffff;
+  }
+  
+  .headteacherCard {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .headteacherCard:hover {
+    transform: translateY(-8px);
+  }
+  
+  .headteacherCard img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .headteacherCard .card-body {
+    padding: 1rem;
+  }
+  
+  .headteacherCard h5 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .headteacherCard p {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+  
+  .socialIcons a {
+    font-size: 1.2rem;
+    color: #555;
+    transition: color 0.3s;
+  }
+  
+  .socialIcons a:hover {
+    color: #007bff;
+  }
+  
+  /* Board Section */
+  .boardSection {
+    padding: 4rem 0;
+    background: #f8fafc;
+    text-align: center;
+  }
+  
+  .boardSection h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #222;
+  }
+  
+  .boardDescription p {
+    font-size: 1.05rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto 3rem;
+  }
+  
+  .boardMembers {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  
+  .boardColumn {
+    flex: 0 1 250px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    padding: 1rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .boardColumn:hover {
+    transform: translateY(-6px);
+  }
+  
+  .boardColumn ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .boardColumn li {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: #444;
+  }
+  
+  .boardImage {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  

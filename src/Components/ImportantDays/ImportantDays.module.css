@@ -1,0 +1,89 @@
+.importantdaysContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 32px;
+    color: #333;
+    margin-bottom: 40px;
+    font-weight: bold;
+  }
+  
+  .campusGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+   
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .campusCard {
+    padding: 20px;
+    min-height: 400px;
+  }
+  
+  .alevelCampus {
+    background-color: white;
+  }
+  
+  .greenCampus {
+    background-color: #4361ee;
+    color: white;
+  }
+  
+  .mainCampus {
+    background-color: white;
+  }
+  
+  .mbalalaCampus {
+    background-color: #4361ee;
+    color: white;
+  }
+  
+  .campusTitle {
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .alevelCampus .campusTitle,
+  .mainCampus .campusTitle {
+    color: #f03;
+  }
+  
+  .greenCampus .campusTitle,
+  .mbalalaCampus .campusTitle {
+    color: #999;
+  }
+  
+  .eventsList {
+    list-style-type: none;
+    padding-left: 20px;
+  }
+  
+  .eventsList li {
+    margin-bottom: 15px;
+    line-height: 1.4;
+    position: relative;
+  }
+  
+  .eventsList li::before {
+    content: "•";
+    position: absolute;
+    left: -15px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .campusGrid {
+      grid-template-columns: 1fr;
+    }
+    
+    .campusCard {
+      min-height: auto;
+    }
+  }

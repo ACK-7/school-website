@@ -1,0 +1,209 @@
+.footer {
+    background-color: #222;
+    color: #fff;
+    padding: 4rem 0;
+  }
+  
+  .footertitle {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  
+  .column {
+    flex: 1 1 calc(25% - 2rem);
+    min-width: 250px;
+  }
+  
+  /* School Info */
+  .schoolInfo .logoContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .schoolInfo .logo {
+    width: 80px;
+    height: auto;
+    margin-right: 1rem;
+  }
+  
+  .schoolInfo p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  
+  .socialIcons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .socialIcon {
+    color: #fff;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+  }
+  
+  .socialIcon:hover {
+    color: #4361ee;
+  }
+  
+  /* Contact Info */
+  .contactInfo h5 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .contactInfo p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  
+  .contactInfo .divider {
+    height: 2px;
+    background-color: #4361ee;
+    margin-bottom: 1rem;
+  }
+  
+  .accreditedBy {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .accreditedLogo {
+    width: 60px;
+    height: auto;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Quick Links */
+  .quickLinks h5 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .quickLinks .divider {
+    height: 2px;
+    background-color: #4361ee;
+    margin-bottom: 1rem;
+  }
+  
+  .linkList {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .link {
+    display: block;
+    font-size: 0.9rem;
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+  }
+  
+  .link:hover {
+    color: #4361ee;
+  }
+  
+  /* Latest News */
+  .latestNews h5 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .latestNews .divider {
+    height: 2px;
+    background-color: #4361ee;
+    margin-bottom: 1rem;
+  }
+  
+  .newsItem {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .newsImage {
+    width: 200px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+  
+  .newsImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .newsDate {
+    font-size: 0.8rem;
+    color: #aaa;
+    margin-bottom: 0.5rem;
+  }
+  
+  .newsTitle {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .newsDescription {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  
+  /* Copyright */
+  .copyright {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 2rem;
+    color: #aaa;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 992px) {
+    .column {
+      flex: 1 1 100%;
+      text-align: center; /* Center text */
+    }
+  
+    .row {
+      flex-direction: column;
+      align-items: center; /* Center child columns */
+    }
+  
+    .schoolInfo .logoContainer {
+      justify-content: center; /* Center logo + title */
+    }
+  
+    .socialIcons {
+      justify-content: center; /* Center social icons */
+    }
+  
+    .newsImage {
+      margin-left: auto;
+      margin-right: auto; /* Center news image */
+    }
+  }
+  
+  
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 1rem;
+    }
+  
+    .footer {
+      padding: 3rem 0;
+    }
+  }
