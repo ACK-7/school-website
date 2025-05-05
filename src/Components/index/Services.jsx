@@ -1,23 +1,24 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBook, faUsers, faTable } from '@fortawesome/free-solid-svg-icons';
 
 const services = [
   {
-    icon: 'fa-book',
+    icon: faBook,
     title: 'Academic Excellence',
     description:
       'Achieve your full potential with a commitment to academic excellence. Our programs are designed to foster critical thinking, innovation, and lifelong learning.',
     bgColor: 'bg-[#45a0de]',
   },
   {
-    icon: 'fa-users',
+    icon: faUsers,
     title: 'Expert Teachers',
     description:
       'Learn from passionate, highly qualified educators dedicated to guiding you toward success. Our teachers provide personalized support and inspire confidence.',
     bgColor: 'bg-[#d59f0f]',
   },
   {
-    icon: 'fa-table',
+    icon: faTable,
     title: 'Best Classrooms',
     description:
       'Experience a state-of-the-art learning environment. Our classrooms are equipped with advanced technology and resources to ensure effective and enjoyable education.',
@@ -37,7 +38,7 @@ const Service = () => {
               : ''
           } sm:p-[15px_10px]`}
         >
-          <span className="fa block text-[40px] sm:text-[32px] mb-[15px] sm:mb-[10px]">{service.icon}</span>
+          <FontAwesomeIcon icon={service.icon} className="text-[40px] sm:text-[32px] mb-[15px] sm:mb-[10px]" />
           <h3 className="text-[25px] font-bold mb-[10px] sm:text-[20px] sm:mb-0">{service.title}</h3>
           <p className="text-[18px] leading-[1.5] xs:hidden">{service.description}</p>
         </article>

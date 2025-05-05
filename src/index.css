@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,7 +11,7 @@
   }
 
   body {
-    @apply font-['Outfit'] bg-[#f5f5f5] text-gray-800;
+    @apply font-outfit bg-[#f5f5f5] text-gray-800;
   }
 
   a {
