@@ -1,14 +1,12 @@
 import React from 'react'
-import Navbar1 from '../Components/Navbar1/Navbar1'
-import Statements from '../Components/Statements/Statements1/Statements'
-import Banner from '../Components/Statements/Banner/Banner'
-import Footer from '../Components/Footer/Footer'
+import Navbar1 from '../Components/Navbar1'
+import Statements from '../Components/Statements/Statements'
+import Banner from '../Components/Statements/Banner'
+import Footer from '../Components/Footer'
 
-
-
-const About = () => {
+const StatementsP = () => {
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       <Navbar1 />
       <Banner />
       <Statements />
@@ -17,4 +15,4 @@ const About = () => {
   )
 }
 
-export default About
+export default StatementsP

@@ -6,6 +6,7 @@ import './index.css'
 import About from './Pages/About';
 import Administration from './Pages/AdministrationP';
 import Statements from './Pages/StatementsP';
+import Contact from './Pages/Contact';
 
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/about" element={<About />} caseSensitive={false} />
         <Route path="/administration" element={<Administration />} caseSensitive={false} />
         <Route path="/mission-vision" element={<Statements />} caseSensitive={false} />
+        <Route path="/contact" element={<Contact />} caseSensitive={false} />
       </Routes>
     </Router>
   )

@@ -1,19 +1,18 @@
-import React from 'react'
-import Navbar1 from '../Components/Navbar1/Navbar1'
-import Footer from '../Components/Footer/Footer'
-import Administration from '../Components/Administration/Administration1/Administration'
-import Banner from '../Components/Administration/Banner/Banner'
+import React from "react";
+import Navbar1 from "../Components/Navbar1";
+import Footer from "../Components/Footer";
+import Administration from "../Components/Administration/Administration";
+import Banner from "../Components/Administration/Banner";
 
-
-const About = () => {
+const AdministrationP = () => {
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       <Navbar1 />
       <Banner />
       <Administration />
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default About
+export default AdministrationP;

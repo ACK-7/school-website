@@ -1,21 +1,20 @@
-import React from 'react'
-import Navbar1 from '../Components/Navbar1/Navbar1'
-import Banner from '../Components/Banner/Banner'
-import HistorySection from '../Components/HistorySection/HistorySection'
-import CampusSection from '../Components/CampusSection/CampusSection'
-import Footer from '../Components/Footer/Footer'
-
+import React from "react";
+import Navbar1 from "../Components/Navbar1";
+import Banner from "../Components/About/Banner";
+import HistorySection from "../Components/About/HistorySection";
+import CampusSection from "../Components/About/CampusSection";
+import Footer from "../Components/Footer";
 
 const About = () => {
   return (
-    <div>
+    <div className="min-h-screen bg-gray-50">
       <Navbar1 />
       <Banner />
       <HistorySection />
       <CampusSection />
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default About
+export default About;
