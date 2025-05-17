@@ -41,7 +41,7 @@ const Statements = () => {
     // Initial page load animation
     const pageLoadTl = gsap.timeline()
     pageLoadTl.from(pageRef.current, {
-      opacity: 0,
+      opacity: 1,
       duration: 0.8,
       ease: "power2.out",
     })
@@ -50,7 +50,7 @@ const Statements = () => {
     if (studentLifeRef.current) {
       gsap.from(studentLifeRef.current, {
         y: 50,
-        opacity: 0,
+        opacity: 1,
         duration: 0.8,
         ease: "power3.out",
         scrollTrigger: {
@@ -78,14 +78,14 @@ const Statements = () => {
       bannerTl
         .from(statementsBannerRef.current, {
           scale: 0.95,
-          opacity: 0,
+          opacity: 1,
           duration: 1,
           ease: "power2.out",
         })
         .from(
           bannerTextRef.current,
           {
-            opacity: 0,
+            opacity: 1,
             y: 30,
             duration: 0.7,
             ease: "back.out(1.7)",
@@ -118,7 +118,7 @@ const Statements = () => {
 
       valueBlocks.forEach((block, index) => {
         gsap.from(block, {
-          opacity: 0,
+          opacity: 1,
           y: 30,
           duration: 0.7,
           ease: "power3.out",
@@ -137,7 +137,7 @@ const Statements = () => {
     // History block animation with text reveal
     if (historyBlockRef.current) {
       gsap.from(historyBlockRef.current, {
-        opacity: 0,
+        opacity: 1,
         x: 70,
         duration: 0.9,
         ease: "power3.out",
@@ -151,7 +151,7 @@ const Statements = () => {
       })
 
       gsap.from(historyTitleRef.current, {
-        opacity: 0,
+        opacity: 1,
         y: 20,
         duration: 0.6,
         ease: "back.out(1.7)",
@@ -168,7 +168,7 @@ const Statements = () => {
       if (historyTextRef.current && historyTextRef.current.children) {
         Array.from(historyTextRef.current.children).forEach((child, index) => {
           gsap.from(child, {
-            opacity: 0,
+            opacity: 1,
             y: 20,
             duration: 0.6,
             delay: index * 0.15,
@@ -189,7 +189,7 @@ const Statements = () => {
     if (campusListRef.current && campusItemsRef.current.length) {
       campusItemsRef.current.forEach((item, index) => {
         gsap.from(item, {
-          opacity: 0,
+          opacity: 1,
           x: -30,
           duration: 0.6,
           delay: index * 0.1,
@@ -208,7 +208,7 @@ const Statements = () => {
     // Campus button animation
     if (campusBtnRef.current) {
       gsap.from(campusBtnRef.current, {
-        opacity: 0,
+        opacity: 1,
         y: 20,
         scale: 0.9,
         duration: 0.7,
@@ -259,7 +259,7 @@ const Statements = () => {
       philosophyBlocksRef.current.forEach((block, index) => {
         // Initial animation on scroll
         gsap.from(block, {
-          opacity: 0,
+          opacity: 1,
           y: 50,
           duration: 0.8,
           ease: "power3.out",
@@ -299,7 +299,7 @@ const Statements = () => {
       successBlocksRef.current.forEach((block, index) => {
         // Initial animation on scroll
         gsap.from(block, {
-          opacity: 0,
+          opacity: 1,
           x: index % 2 === 0 ? -50 : 50,
           y: 30,
           duration: 0.9,

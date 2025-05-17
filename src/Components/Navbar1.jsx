@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 992);
+  const { isAuthenticated, logout } = useAuth ? useAuth() : { isAuthenticated: false, logout: () => {} };
+  const navigate = useNavigate ? useNavigate() : () => {};
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,6 +48,11 @@ const Navbar = () => {
     if (isMobile) {
       setActiveDropdown(activeDropdown === index ? null : index);
     }
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
   };
 
   return (
@@ -130,7 +138,7 @@ const Navbar = () => {
                       <img
                         src="src/assets/aboutus.png"
                         alt="About Us Image"
-                        className="w-[150px] h-[200px]"
+                        className="w-auto"
                       />
                     </div>
                   </div>
@@ -201,7 +209,7 @@ const Navbar = () => {
                       <img
                         src="src/assets/admission.png" 
                         alt="About Us Image"
-                        className="w-[150px] h-[200px]"
+                        className="w-auto"
                       />
                     </div>
                   </div>
@@ -263,7 +271,7 @@ const Navbar = () => {
                       <img
                         src="src/assets/academics.png" 
                         alt="About Us Image"
-                        className="w-[150px] h-[200px]"
+                        className="w-auto"
                       />
                     </div>
                   </div>
@@ -330,7 +338,7 @@ const Navbar = () => {
                       <img
                         src="src/assets/studentlife.png" 
                         alt="About Us Image"
-                        className="w-[150px] h-[200px]"
+                        className="w-auto"
                       />
                     </div>
                   </div>
@@ -342,12 +350,41 @@ const Navbar = () => {
               <Link className={`text-white font-medium py-2 px-4 transition-all duration-300 ease-in-out no-underline flex justify-between items-center hover:bg-white/10 ${isMobile ? 'py-4 px-0 text-lg' : ''}`} to="/contact-us">Contact Us</Link>
             </li>
           </ul>
-          <Link 
-            to="/apply" 
-            className={`bg-[#DAA520] text-white border-none rounded-full py-2 px-6 font-medium no-underline transition-all duration-300 ease-in-out hover:bg-[#c69500] hover:text-white ${isMobile ? 'mt-6 inline-block w-full text-center py-3' : ''}`}
-          >
-            APPLY NOW
-          </Link>
+          <div className="flex items-center gap-4">
+            {!isAuthenticated ? (
+              <>
+                <Link
+                  to="/apply"
+                  className="px-6 py-2 bg-[#d59f0f] text-white rounded border-none font-semibold transition-all duration-200 hover:bg-[#ecc74a] focus:outline-none"
+                  style={{ boxShadow: 'none' }}
+                >
+                  Apply Now
+                </Link>
+                <Link
+                  to="/login"
+                  className="px-6 py-2 border-2 border-[#d59f0f] text-[white] bg-transparent rounded font-semibold transition-all duration-200 hover:bg-[#F9F9F950] focus:outline-none"
+                  style={{ boxShadow: 'none' }}
+                >
+                  Staff Login
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/dashboard"
+                  className="ml-4 px-5 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition"
+                >
+                  Dashboard
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="ml-2 px-5 py-2 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition"
+                >
+                  Logout
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </nav>

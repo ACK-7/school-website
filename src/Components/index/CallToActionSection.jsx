@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { FaPaperPlane } from "react-icons/fa";
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const CallToActionSection = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,18 +27,20 @@ const CallToActionSection = () => {
     message: false,
   });
 
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showForm, setShowForm] = useState(true);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
-    
-    // Clear error when user starts typing
+
     if (value.trim() !== "") {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        [name]: false
+        [name]: false,
       }));
     }
   };
@@ -51,12 +57,11 @@ const CallToActionSection = () => {
       ...prev,
       [field]: formData[field].trim() !== "",
     }));
-    
-    // Validate on blur
+
     if (formData[field].trim() === "") {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        [field]: true
+        [field]: true,
       }));
     }
   };
@@ -70,23 +75,40 @@ const CallToActionSection = () => {
     };
 
     setErrors(newErrors);
-    return !Object.values(newErrors).some(error => error);
+    return !Object.values(newErrors).some((error) => error);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // Validate all fields before submission
+
     if (validateForm()) {
-      // Handle form submission logic here
-      console.log("Form submitted:", formData);
+      axios
+        .post("http://localhost/API/seeta.php", formData)
+        .then((response) => {
+          console.log("Success:", response.data);
+          setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            message: "",
+          });
+          setShowForm(false);
+          setShowSuccessMessage(true);
+          setTimeout(() => {
+            setShowSuccessMessage(false);
+            setShowForm(true);
+            navigate("/");
+          }, 3000);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     }
   };
 
   return (
     <section className="py-20">
       <div className="max-w-full mx-auto px-6 bg-gray-200">
-        {/* Integrated Card */}
         <div className="flex flex-col lg:flex-row gap-8 p-10">
           {/* Left Column: Map */}
           <div className="flex-1 flex flex-col">
@@ -119,134 +141,84 @@ const CallToActionSection = () => {
                 <span className="w-8 h-0.5 bg-blue-600"></span>
               </div>
             </div>
-            <form onSubmit={handleSubmit} className="w-full">
-              <div className="relative mb-6">
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  onFocus={() => handleFocus("name")}
-                  onBlur={() => handleBlur("name")}
-                  className={`w-full px-2 py-3 bg-transparent border-b border-black outline-none transition-colors ${
-                    focused.name || formData.name ? "border-blue-600" : ""
-                  } ${errors.name ? "border-red-500" : ""}`}
-                />
-                <label
-                  className={`absolute left-2 ${
-                    focused.name || formData.name
-                      ? "top-0 left-0 text-sm text-blue-600"
-                      : "top-1/2 -translate-y-1/2"
-                  } pointer-events-none transition-all duration-300 ${
-                    errors.name ? "text-red-500" : "text-gray-900"
-                  }`}
-                >
-                  Name
-                </label>
-                {errors.name && (
-                  <span className="absolute left-0 bottom-[-20px] text-red-500 text-sm">
-                    Name is required
-                  </span>
-                )}
-              </div>
 
-              <div className="relative mb-6">
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  onFocus={() => handleFocus("email")}
-                  onBlur={() => handleBlur("email")}
-                  className={`w-full px-2 py-3 bg-transparent border-b border-black outline-none transition-colors ${
-                    focused.email || formData.email ? "border-blue-600" : ""
-                  } ${errors.email ? "border-red-500" : ""}`}
-                />
-                <label
-                  className={`absolute left-2 ${
-                    focused.email || formData.email
-                      ? "top-0 left-0 text-sm text-blue-600"
-                      : "top-1/2 -translate-y-1/2"
-                  } pointer-events-none transition-all duration-300 ${
-                    errors.email ? "text-red-500" : "text-gray-900"
-                  }`}
-                >
-                  Email
-                </label>
-                {errors.email && (
-                  <span className="absolute left-0 bottom-[-20px] text-red-500 text-sm">
-                    Email is required
-                  </span>
-                )}
-              </div>
+            <div className="relative min-h-[400px]">
+              {showForm && (
+                <form onSubmit={handleSubmit} className="w-full transition-opacity duration-500">
+                  {["name", "email", "phone", "message"].map((field, index) => (
+                    <div key={index} className="relative mb-6">
+                      {field !== "message" ? (
+                        <input
+                          type={field === "email" ? "email" : field === "phone" ? "tel" : "text"}
+                          name={field}
+                          value={formData[field]}
+                          onChange={handleChange}
+                          onFocus={() => handleFocus(field)}
+                          onBlur={() => handleBlur(field)}
+                          className={`w-full px-2 py-3 bg-transparent border-b border-black outline-none transition-colors ${
+                            focused[field] || formData[field] ? "border-blue-600" : ""
+                          } ${errors[field] ? "border-red-500" : ""}`}
+                        />
+                      ) : (
+                        <textarea
+                          name="message"
+                          value={formData.message}
+                          onChange={handleChange}
+                          onFocus={() => handleFocus("message")}
+                          onBlur={() => handleBlur("message")}
+                          className={`w-full px-2 py-3 bg-transparent border-b border-black outline-none transition-colors resize-none min-h-[120px] ${
+                            focused.message || formData.message ? "border-blue-600" : ""
+                          } ${errors.message ? "border-red-500" : ""}`}
+                        />
+                      )}
 
-              <div className="relative mb-6">
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  onFocus={() => handleFocus("phone")}
-                  onBlur={() => handleBlur("phone")}
-                  className={`w-full px-2 py-3 bg-transparent border-b border-black outline-none transition-colors ${
-                    focused.phone || formData.phone ? "border-blue-600" : ""
-                  } ${errors.phone ? "border-red-500" : ""}`}
-                />
-                <label
-                  className={`absolute left-2 ${
-                    focused.phone || formData.phone
-                      ? "top-0 left-0 text-sm text-blue-600"
-                      : "top-1/2 -translate-y-1/2"
-                  } pointer-events-none transition-all duration-300 ${
-                    errors.phone ? "text-red-500" : "text-gray-900"
-                  }`}
-                >
-                  Phone
-                </label>
-                {errors.phone && (
-                  <span className="absolute left-0 bottom-[-20px] text-red-500 text-sm">
-                    Phone is required
-                  </span>
-                )}
-              </div>
+                      <label
+                        className={`absolute left-2 ${
+                          focused[field] || formData[field]
+                            ? "top-0 left-0 text-sm text-blue-600"
+                            : field === "message"
+                            ? "top-4"
+                            : "top-1/2 -translate-y-1/2"
+                        } pointer-events-none transition-all duration-300 ${
+                          errors[field] ? "text-red-500" : "text-gray-900"
+                        }`}
+                      >
+                        {field.charAt(0).toUpperCase() + field.slice(1)}
+                      </label>
 
-              <div className="relative mb-6">
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  onFocus={() => handleFocus("message")}
-                  onBlur={() => handleBlur("message")}
-                  className={`w-full px-2 py-3 bg-transparent border-b border-black outline-none transition-colors resize-none min-h-[120px] ${
-                    focused.message || formData.message ? "border-blue-600" : ""
-                  } ${errors.message ? "border-red-500" : ""}`}
-                />
-                <label
-                  className={`absolute left-2 ${
-                    focused.message || formData.message
-                      ? "top-0 left-0 text-sm text-blue-600"
-                      : "top-4"
-                  } pointer-events-none transition-all duration-300 ${
-                    errors.message ? "text-red-500" : "text-gray-900"
-                  }`}
-                >
-                  Message
-                </label>
-                {errors.message && (
-                  <span className="absolute left-0 bottom-[-20px] text-red-500 text-sm">
-                    Message is required
-                  </span>
-                )}
-              </div>
+                      {errors[field] && (
+                        <span className="absolute left-0 bottom-[-20px] text-red-500 text-sm">
+                          {`${field.charAt(0).toUpperCase() + field.slice(1)} is required`}
+                        </span>
+                      )}
+                    </div>
+                  ))}
 
-              <button
-                type="submit"
-                className="w-full py-4 bg-blue-600 text-white rounded-md font-semibold flex items-center justify-center gap-2 hover:bg-blue-700 active:scale-95 transition-all"
-              >
-                <FaPaperPlane className="text-lg" />
-                Send Message
-              </button>
-            </form>
+                  <button
+                    type="submit"
+                    className="w-full py-4 bg-blue-600 text-white rounded-md font-semibold flex items-center justify-center gap-2 hover:bg-blue-700 active:scale-95 transition-all"
+                  >
+                    <FaPaperPlane className="text-lg" />
+                    Send Message
+                  </button>
+                </form>
+              )}
+
+              {showSuccessMessage && (
+                <div className="absolute inset-0 flex items-center justify-center bg-white rounded-lg shadow-lg transform transition-all duration-500 ease-in-out">
+                  <div className="text-center p-8">
+                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-800 mb-2">Thank You!</h3>
+                    <p className="text-gray-600">Your message has been sent successfully.</p>
+                    <p className="text-gray-600">We'll get back to you soon.</p>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

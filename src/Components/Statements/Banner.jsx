@@ -60,7 +60,7 @@ const Banner = () => {
         alt="Faculty" 
         className="w-full h-screen object-cover block" 
       />
-      <div className="absolute inset-0 bg-black/40 flex flex-col items-start justify-start pl-20">
+      <div className="absolute inset-0 bg-black/40 flex flex-col items-start justify-start pl-20 pt-[350px] md:pl-10 sm:pl-5">
         <h1 className="banner-title text-[80px] text-left text-yellow-500 font-serif mt-[500px] ml-[50px] opacity-0 md:text-[60px] md:mt-[200px] sm:text-[40px] sm:mt-[500px] sm:ml-[10px] xs:text-[30px] xs:mt-[50px] xs:ml-[20px]">
           STATEMENTS
         </h1>

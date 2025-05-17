@@ -57,7 +57,7 @@ const Footer = () => {
             <img
               src="./src/assets/education_logo.png"
               alt="Accreditation Logo"
-              className="w-15 h-auto mb-2"
+              className="w-[80px] h-auto mb-2"
             />
             <p>Ministry of Education and Sports</p>
           </div>
