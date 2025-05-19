@@ -17,6 +17,7 @@ import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import Apply from "./Pages/Apply";
+import AdmissionsProcess from "./Pages/AdmissionProcess";
 
 function RequireAuth({ children }) {
   const { isAuthenticated } = useAuth();
@@ -46,6 +47,7 @@ const App = () => {
           />
           <Route path="/apply" element={<Apply />} caseSensitive={false} />
           <Route path="/contact" element={<Contact />} caseSensitive={false} />
+          <Route path="/admission-overview" element={<AdmissionsProcess/>} caseSensitive={false} />
           <Route path="/login" element={<Login />} />
           <Route
             path="/dashboard"
