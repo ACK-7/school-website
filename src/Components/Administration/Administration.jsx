@@ -33,6 +33,24 @@ const Administration = () => {
       }
     );
 
+    gsap.fromTo(
+          ".text-animation",
+          { opacity: 0, x: -100 }, 
+          {
+            opacity: 1,
+            x: 0, 
+            duration: 1.5,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".message-content",
+              start: "top 80%", 
+              end: "bottom 50%", 
+              scrub: true, 
+            },
+          }
+        );
+
+
     const animateCards = (cards) => {
       cards.current.forEach((card, index) => {
         gsap.fromTo(
@@ -51,6 +69,7 @@ const Administration = () => {
           }
         );
       });
+      
     };
 
     animateCards(adminCardsRef);
@@ -61,16 +80,28 @@ const Administration = () => {
   return (
     <div ref={sectionRef}>
       {/* Content Section */}
-      <section className="py-16 bg-gray-50 text-center content-section">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold text-gray-800 mb-6">
-            We believe that everyone's a student and everyone's a teacher.
-          </h1>
-          <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            Our faculty and staff are experts in their respective fields and enthusiastic collaborators who enjoy sharing their deep content knowledge and research interests with the community...
-          </p>
+      <section className="py-16 bg-gray-50 content-section">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="md:w-1/2 text-left text-animation">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6 tracking-tight transition-all duration-300 hover:text-blue-600">
+              We believe that everyone’s a student and everyone’s a teacher.
+            </h1>
+            <div className="w-24 h-1 bg-blue-500 mb-8 rounded-full transition-all duration-500 hover:w-32"></div>
+            <p className="text-lg text-gray-600 leading-relaxed transition-all duration-300 hover:text-gray-800">
+              Our faculty and staff are experts in their respective fields and enthusiastic collaborators who enjoy sharing their deep content knowledge and research interests with the community...
+            </p>
+          </div>
+          <div className="md:w-1/2 image-animation">
+            <img 
+              src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+              alt="School administrators collaborating" 
+              className="rounded-lg shadow-lg object-cover w-full h-64 md:h-auto"
+            />
+          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* School Administrators Section */}
       <section className="py-12 bg-gray-100">

@@ -14,10 +14,13 @@ import Administration from "./Pages/AdministrationP";
 import Statements from "./Pages/StatementsP";
 import Contact from "./Pages/Contact";
 import Login from "./Pages/Login";
-import Dashboard from "./Pages/Dashboard";
+import Dashboard from "./Pages/Dashboard/Dashboard";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import Apply from "./Pages/Apply";
 import AdmissionsProcess from "./Pages/AdmissionProcess";
+import FeesStructure from "./Pages/FeesStructure";
+import Curriculum from "./Pages/Curriculum";
+import Message from "./Pages/Dashboard/Message";
 
 function RequireAuth({ children }) {
   const { isAuthenticated } = useAuth();
@@ -47,8 +50,11 @@ const App = () => {
           />
           <Route path="/apply" element={<Apply />} caseSensitive={false} />
           <Route path="/contact" element={<Contact />} caseSensitive={false} />
-          <Route path="/admission-overview" element={<AdmissionsProcess/>} caseSensitive={false} />
+          <Route path="/admission-overview" element={<AdmissionsProcess />} caseSensitive={false} />
+          <Route path="/fees-structure" element={<FeesStructure />} caseSensitive={false} />
+          <Route path="/curriculum" element={<Curriculum />} caseSensitive={false} />
           <Route path="/login" element={<Login />} />
+          <Route path="/message" element={<Message />} />
           <Route
             path="/dashboard"
             element={
