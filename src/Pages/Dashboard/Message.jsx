@@ -1,6 +1,27 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { FaEnvelope, FaSearch, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { 
+  Search, 
+  ChevronLeft, 
+  ChevronRight,
+  Inbox,
+  Star,
+  Trash2,
+  Archive,
+  Reply,
+  Forward,
+  MoreVertical,
+  Check,
+  RefreshCw,
+  Mail,
+  Menu,
+  Settings,
+  User,
+  Calendar,
+  Send,
+  Filter,
+  Eye,
+  EyeOff
+} from "lucide-react";
 
 const Message = () => {
   const [submissions, setSubmissions] = useState([]);
@@ -8,8 +29,13 @@ const Message = () => {
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedMessages, setSelectedMessages] = useState(new Set());
+  const [selectedMessage, setSelectedMessage] = useState(null);
+  const [starredMessages, setStarredMessages] = useState(new Set());
+  const [readMessages, setReadMessages] = useState(new Set());
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
 
   useEffect(() => {
     const fetchSubmissions = async () => {
@@ -17,37 +43,31 @@ const Message = () => {
         setLoading(true);
         setError(null);
         
-        const response = await axios.get("http://localhost/API/contact_submissions.php", {
+        // Simulating API call - replace with your actual API using fetch
+        const response = await fetch("http://localhost/API/contact_submissions.php", {
+          method: 'GET',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
-          withCredentials: true,
-          timeout: 10000 // 10 second timeout
+          credentials: 'include'
         });
         
-        console.log("API Response:", response.data); // Debug log
+        const data = await response.json();
         
-        if (response.data.success) {
-          setSubmissions(response.data.data || []);
+        if (data.success) {
+          setSubmissions(data.data || []);
         } else {
-          throw new Error(response.data.message || "Failed to fetch data");
+          throw new Error(data.message || "Failed to fetch data");
         }
         
       } catch (err) {
         console.error("Error fetching submissions:", err);
         
-        if (err.code === 'ECONNABORTED') {
+        if (err.name === 'AbortError') {
           setError("Request timeout. Please check if the server is running.");
-        } else if (err.response) {
-          // Server responded with error status
-          setError(err.response.data?.message || `Server error: ${err.response.status}`);
-        } else if (err.request) {
-          // Request made but no response received
-          setError("Cannot connect to server. Please check if the API server is running on http://localhost/API/");
         } else {
-          // Something else happened
-          setError(err.message || "An unexpected error occurred");
+          setError("Cannot connect to server. Please check if the API server is running.");
         }
       } finally {
         setLoading(false);
@@ -84,129 +104,410 @@ const Message = () => {
     }
   };
 
-  return (
-    <div className="min-h-screen p-6 bg-gradient-to-br from-[#0a0e1f] to-[#1a2a4a] text-gray-100">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center text-white text-xl">
-            <FaEnvelope />
+  const handleSelectAll = () => {
+    if (selectedMessages.size === currentSubmissions.length) {
+      setSelectedMessages(new Set());
+    } else {
+      setSelectedMessages(new Set(currentSubmissions.map(sub => sub.id)));
+    }
+  };
+
+  const handleSelectMessage = (id) => {
+    const newSelected = new Set(selectedMessages);
+    if (newSelected.has(id)) {
+      newSelected.delete(id);
+    } else {
+      newSelected.add(id);
+    }
+    setSelectedMessages(newSelected);
+  };
+
+  const handleStarMessage = (id) => {
+    const newStarred = new Set(starredMessages);
+    if (newStarred.has(id)) {
+      newStarred.delete(id);
+    } else {
+      newStarred.add(id);
+    }
+    setStarredMessages(newStarred);
+  };
+
+  const handleMessageClick = (message) => {
+    setSelectedMessage(message);
+    setReadMessages(prev => new Set([...prev, message.id]));
+  };
+
+  const handleCloseMessage = () => {
+    setSelectedMessage(null);
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffTime = Math.abs(now - date);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (diffDays === 1) {
+      return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    } else if (diffDays <= 7) {
+      return date.toLocaleDateString([], { weekday: 'short' });
+    } else {
+      return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
+    }
+  };
+
+  const truncateMessage = (text, maxLength = 100) => {
+    if (!text) return '';
+    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+  };
+
+  const getInitials = (name) => {
+    return name.split(' ').map(n => n[0]).join('').toUpperCase();
+  };
+
+  const getAvatarColor = (name) => {
+    const colors = [
+      'bg-purple-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 
+      'bg-pink-500', 'bg-indigo-500', 'bg-red-500', 'bg-teal-500'
+    ];
+    const index = name.length % colors.length;
+    return colors[index];
+  };
+
+  if (selectedMessage) {
+    return (
+      <div className="min-h-screen bg-gray-900 text-gray-100">
+        {/* Message View Header */}
+        <div className="bg-gray-800/50 backdrop-blur-xl border-b border-gray-700/50 px-6 py-4 sticky top-0 z-10">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={handleCloseMessage}
+                className="text-gray-400 hover:text-gray-200 p-2 rounded-lg hover:bg-gray-800/50 transition-all duration-200"
+              >
+                <ChevronLeft size={20} />
+              </button>
+              <div className="flex items-center space-x-3">
+                <button className="text-gray-400 hover:text-blue-400 p-2 rounded-lg hover:bg-gray-800/50 transition-all duration-200">
+                  <Archive size={18} />
+                </button>
+                <button className="text-gray-400 hover:text-red-400 p-2 rounded-lg hover:bg-gray-800/50 transition-all duration-200">
+                  <Trash2 size={18} />
+                </button>
+                <button className="text-gray-400 hover:text-green-400 p-2 rounded-lg hover:bg-gray-800/50 transition-all duration-200">
+                  <Reply size={18} />
+                </button>
+                <button className="text-gray-400 hover:text-purple-400 p-2 rounded-lg hover:bg-gray-800/50 transition-all duration-200">
+                  <Forward size={18} />
+                </button>
+              </div>
+            </div>
+            <div className="text-sm text-gray-400 bg-gray-800/30 px-3 py-1 rounded-lg">
+              {formatDate(selectedMessage.sent_at)}
+            </div>
           </div>
-          <h1 className="text-2xl font-bold tracking-wide">Messages</h1>
         </div>
-        <div className="text-sm text-gray-400">
-          {loading ? "Loading..." : `Total: ${filteredSubmissions.length} messages`}
+
+        {/* Message Content */}
+        <div className="max-w-4xl mx-auto p-6">
+          <div className="bg-gray-800/30 backdrop-blur-xl rounded-2xl border border-gray-700/50 overflow-hidden">
+            <div className="p-8">
+              <div className="border-b border-gray-700/30 pb-6 mb-8">
+                <h1 className="text-2xl font-light text-gray-100 mb-4">
+                  Contact Form Submission
+                </h1>
+                <div className="flex items-center space-x-4">
+                  <div className={`w-12 h-12 ${getAvatarColor(selectedMessage.name)} rounded-full flex items-center justify-center text-white font-medium shadow-lg`}>
+                    {getInitials(selectedMessage.name)}
+                  </div>
+                  <div>
+                    <div className="font-medium text-gray-100 text-lg">{selectedMessage.name}</div>
+                    <div className="text-gray-400 text-sm">{selectedMessage.email}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <div className="bg-gray-800/40 rounded-xl p-4">
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Phone Number</label>
+                  <div className="text-gray-100 text-lg">{selectedMessage.phone || 'Not provided'}</div>
+                </div>
+                
+                <div className="bg-gray-800/40 rounded-xl p-4">
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                  <div className="text-gray-100 whitespace-pre-wrap leading-relaxed text-lg">
+                    {selectedMessage.message}
+                  </div>
+                </div>
+                
+                <div className="bg-gray-800/40 rounded-xl p-4">
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Received</label>
+                  <div className="text-gray-400">
+                    {new Date(selectedMessage.sent_at).toLocaleString()}
+                  </div>
+                </div>
+              </div>
+
+              {/* Reply Section */}
+              <div className="mt-8 pt-6 border-t border-gray-700/30 flex space-x-3">
+                <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 flex items-center space-x-2 shadow-lg">
+                  <Reply size={18} />
+                  <span>Reply</span>
+                </button>
+                <button className="bg-gray-800/50 text-gray-300 px-6 py-3 rounded-xl hover:bg-gray-700/50 transition-all duration-200 flex items-center space-x-2">
+                  <Forward size={18} />
+                  <span>Forward</span>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+    );
+  }
 
-      {/* Main Content */}
-      <div className="bg-[#1f2937] rounded-xl p-6 shadow-lg">
-        {/* Search and Pagination */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-          <div className="w-full md:w-1/2">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search messages..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 pl-10 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-purple-500"
-              />
-              <FaSearch className="absolute left-3 top-3 text-gray-400" />
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100">
+      {/* Top Header */}
+      <div className="bg-gray-800/50 backdrop-blur-xl border-b border-gray-700/50 px-6 py-4 sticky top-0 z-20">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <button 
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="p-2 hover:bg-gray-700/50 rounded-lg transition-all duration-200"
+            >
+              <Menu size={20} className="text-gray-400" />
+            </button>
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                <Mail size={16} className="text-white" />
+              </div>
+              <h1 className="text-xl font-light text-gray-100">School Inbox</h1>
             </div>
           </div>
           
-          {!loading && !error && totalPages > 1 && (
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-                className="px-4 py-2 bg-gray-800 rounded-lg disabled:bg-gray-700 text-gray-300 disabled:text-gray-500 hover:bg-gray-700 transition-colors"
-              >
-                <FaChevronLeft />
+          <div className="flex items-center space-x-3">
+            <button className="p-2 hover:bg-gray-700/50 rounded-lg transition-all duration-200 text-gray-400 hover:text-gray-200">
+              <Settings size={18} />
+            </button>
+            <button className="p-2 hover:bg-gray-700/50 rounded-lg transition-all duration-200 text-gray-400 hover:text-gray-200">
+              <User size={18} />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex">
+        {/* Sidebar */}
+        <div className={`${sidebarOpen ? 'w-64' : 'w-16'} bg-gray-800/30 backdrop-blur-xl border-r border-gray-700/50 transition-all duration-300 flex-shrink-0`}>
+          <div className="p-4 space-y-2">
+            <div className={`flex items-center space-x-3 p-3 rounded-xl bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 ${!sidebarOpen ? 'justify-center' : ''}`}>
+              <Inbox size={20} className="text-blue-400" />
+              {sidebarOpen && <span className="text-gray-200 font-medium">Inbox</span>}
+              {sidebarOpen && <span className="ml-auto bg-blue-600/30 text-blue-300 text-xs px-2 py-1 rounded-full">{filteredSubmissions.length}</span>}
+            </div>
+            
+            <div className={`flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-700/30 transition-all duration-200 cursor-pointer ${!sidebarOpen ? 'justify-center' : ''}`}>
+              <Star size={20} className="text-yellow-400" />
+              {sidebarOpen && <span className="text-gray-300">Starred</span>}
+              {sidebarOpen && <span className="ml-auto text-gray-500 text-xs">{starredMessages.size}</span>}
+            </div>
+            
+            <div className={`flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-700/30 transition-all duration-200 cursor-pointer ${!sidebarOpen ? 'justify-center' : ''}`}>
+              <Send size={20} className="text-green-400" />
+              {sidebarOpen && <span className="text-gray-300">Sent</span>}
+            </div>
+            
+            <div className={`flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-700/30 transition-all duration-200 cursor-pointer ${!sidebarOpen ? 'justify-center' : ''}`}>
+              <Trash2 size={20} className="text-red-400" />
+              {sidebarOpen && <span className="text-gray-300">Trash</span>}
+            </div>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1 flex flex-col">
+          {/* Search and Filters */}
+          <div className="bg-gray-800/20 backdrop-blur-xl border-b border-gray-700/30 p-6">
+            <div className="flex items-center space-x-4">
+              <div className="flex-1 relative">
+                <input
+                  type="text"
+                  placeholder="Search messages..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full px-4 py-3 pl-12 bg-gray-800/40 backdrop-blur-xl border border-gray-700/50 rounded-xl text-gray-100 placeholder-gray-400 focus:outline-none focus:border-blue-500/50 focus:bg-gray-800/60 transition-all duration-200"
+                />
+                <Search className="absolute left-4 top-4 text-gray-400" size={16} />
+              </div>
+              <button className="p-3 bg-gray-800/40 border border-gray-700/50 rounded-xl hover:bg-gray-700/40 transition-all duration-200">
+                <Filter size={16} className="text-gray-400" />
               </button>
-              <span className="px-4 py-2 bg-gray-800 rounded-lg text-gray-300">
-                Page {currentPage} of {totalPages}
-              </span>
-              <button
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className="px-4 py-2 bg-gray-800 rounded-lg disabled:bg-gray-700 text-gray-300 disabled:text-gray-500 hover:bg-gray-700 transition-colors"
-              >
-                <FaChevronRight />
+              <button className="p-3 bg-gray-800/40 border border-gray-700/50 rounded-xl hover:bg-gray-700/40 transition-all duration-200">
+                <RefreshCw size={16} className="text-gray-400" />
               </button>
+            </div>
+          </div>
+
+          {/* Toolbar */}
+          {!loading && !error && currentSubmissions.length > 0 && (
+            <div className="bg-gray-800/20 backdrop-blur-xl border-b border-gray-700/30 px-6 py-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-3">
+                    <input
+                      type="checkbox"
+                      checked={selectedMessages.size === currentSubmissions.length && currentSubmissions.length > 0}
+                      onChange={handleSelectAll}
+                      className="w-4 h-4 rounded border-gray-600 bg-gray-800 text-blue-600 focus:ring-blue-500 focus:ring-offset-gray-800"
+                    />
+                    <button className="text-gray-400 hover:text-blue-400 p-2 rounded-lg hover:bg-gray-800/50 transition-all duration-200">
+                      <Archive size={16} />
+                    </button>
+                    <button className="text-gray-400 hover:text-red-400 p-2 rounded-lg hover:bg-gray-800/50 transition-all duration-200">
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                  
+                  {selectedMessages.size > 0 && (
+                    <span className="text-sm text-blue-400 bg-blue-600/20 px-3 py-1 rounded-lg">
+                      {selectedMessages.size} selected
+                    </span>
+                  )}
+                </div>
+
+                {/* Pagination */}
+                {totalPages > 1 && (
+                  <div className="flex items-center space-x-3 text-sm text-gray-400">
+                    <span className="bg-gray-800/40 px-3 py-1 rounded-lg">
+                      {indexOfFirstItem + 1}–{Math.min(indexOfLastItem, filteredSubmissions.length)} of {filteredSubmissions.length}
+                    </span>
+                    <button
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      className="p-2 rounded-lg hover:bg-gray-800/50 disabled:text-gray-600 disabled:cursor-not-allowed transition-all duration-200"
+                    >
+                      <ChevronLeft size={16} />
+                    </button>
+                    <button
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      className="p-2 rounded-lg hover:bg-gray-800/50 disabled:text-gray-600 disabled:cursor-not-allowed transition-all duration-200"
+                    >
+                      <ChevronRight size={16} />
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Loading State */}
+          {loading && (
+            <div className="flex-1 flex justify-center items-center">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-2 border-blue-500 border-t-transparent mx-auto"></div>
+                <span className="mt-4 text-gray-400">Loading messages...</span>
+              </div>
+            </div>
+          )}
+
+          {/* Error State */}
+          {error && (
+            <div className="m-6 bg-red-500/10 border border-red-500/30 text-red-400 px-6 py-4 rounded-xl backdrop-blur-xl">
+              <strong className="font-medium">Error:</strong> {error}
+            </div>
+          )}
+
+          {/* Empty States */}
+          {!loading && !error && submissions.length === 0 && (
+            <div className="flex-1 flex justify-center items-center">
+              <div className="text-center">
+                <Inbox className="mx-auto h-16 w-16 text-gray-600 mb-4" />
+                <h3 className="text-xl font-light text-gray-300 mb-2">Your inbox is empty</h3>
+                <p className="text-gray-500">No contact form submissions to display.</p>
+              </div>
+            </div>
+          )}
+
+          {!loading && !error && submissions.length > 0 && filteredSubmissions.length === 0 && (
+            <div className="flex-1 flex justify-center items-center">
+              <div className="text-center">
+                <Search className="mx-auto h-16 w-16 text-gray-600 mb-4" />
+                <h3 className="text-xl font-light text-gray-300 mb-2">No messages found</h3>
+                <p className="text-gray-500">Try different keywords or clear your search.</p>
+              </div>
+            </div>
+          )}
+
+          {/* Messages List */}
+          {!loading && !error && currentSubmissions.length > 0 && (
+            <div className="flex-1 overflow-auto">
+              <div className="divide-y divide-gray-700/30">
+                {currentSubmissions.map((submission) => (
+                  <div
+                    key={submission.id}
+                    className={`flex items-center px-6 py-4 hover:bg-gray-800/20 cursor-pointer transition-all duration-200 group ${
+                      selectedMessages.has(submission.id) ? 'bg-blue-600/10 border-l-4 border-blue-500' : ''
+                    } ${!readMessages.has(submission.id) ? 'bg-gray-800/10' : ''}`}
+                    onClick={() => handleMessageClick(submission)}
+                  >
+                    <div className="flex items-center space-x-4 flex-shrink-0">
+                      <input
+                        type="checkbox"
+                        checked={selectedMessages.has(submission.id)}
+                        onChange={(e) => {
+                          e.stopPropagation();
+                          handleSelectMessage(submission.id);
+                        }}
+                        className="w-4 h-4 rounded border-gray-600 bg-gray-800 text-blue-600 focus:ring-blue-500 focus:ring-offset-gray-800"
+                      />
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleStarMessage(submission.id);
+                        }}
+                        className="text-gray-500 hover:text-yellow-400 transition-colors duration-200"
+                      >
+                        <Star 
+                          size={16} 
+                          className={starredMessages.has(submission.id) ? "text-yellow-400 fill-yellow-400" : ""} 
+                        />
+                      </button>
+                    </div>
+
+                    <div className="flex-1 min-w-0 ml-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-4 flex-1 min-w-0">
+                          <div className={`w-10 h-10 ${getAvatarColor(submission.name)} rounded-full flex items-center justify-center text-white text-sm font-medium flex-shrink-0 shadow-lg`}>
+                            {getInitials(submission.name)}
+                          </div>
+                          <div className={`font-medium flex-shrink-0 w-48 truncate ${!readMessages.has(submission.id) ? 'text-gray-100' : 'text-gray-300'}`}>
+                            {submission.name}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className={`truncate ${!readMessages.has(submission.id) ? 'text-gray-200' : 'text-gray-400'}`}>
+                              <span className={`${!readMessages.has(submission.id) ? 'font-medium' : 'font-normal'}`}>Contact Form - </span>
+                              {truncateMessage(submission.message)}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-sm text-gray-500 flex-shrink-0 ml-4 bg-gray-800/30 px-2 py-1 rounded-lg">
+                          {formatDate(submission.sent_at)}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Unread indicator */}
+                    {!readMessages.has(submission.id) && (
+                      <div className="w-2 h-2 bg-blue-500 rounded-full ml-3 flex-shrink-0"></div>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>
-
-        {/* Loading State */}
-        {loading && (
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
-            <span className="ml-3 text-gray-400">Loading messages...</span>
-          </div>
-        )}
-
-        {/* Error State */}
-        {error && (
-          <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-lg mb-4" role="alert">
-            <strong className="font-bold">Error:</strong> {error}
-          </div>
-        )}
-
-        {/* No Data State */}
-        {!loading && !error && submissions.length === 0 && (
-          <div className="text-center py-12">
-            <FaEnvelope className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-            <h3 className="text-lg font-medium text-gray-300 mb-2">No messages found</h3>
-            <p className="text-gray-400">There are no contact form submissions to display.</p>
-          </div>
-        )}
-
-        {/* No Search Results */}
-        {!loading && !error && submissions.length > 0 && filteredSubmissions.length === 0 && (
-          <div className="text-center py-12">
-            <FaSearch className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-            <h3 className="text-lg font-medium text-gray-300 mb-2">No results found</h3>
-            <p className="text-gray-400">Try adjusting your search terms.</p>
-          </div>
-        )}
-
-        {/* Messages Table */}
-        {!loading && !error && currentSubmissions.length > 0 && (
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-700">
-              <thead className="bg-gray-800">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">ID</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Name</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Email</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Phone</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Message</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Sent At</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                {currentSubmissions.map((submission, index) => (
-                  <tr key={submission.id || index} className="hover:bg-gray-700/50 transition-colors">
-                    <td className="px-6 py-4 text-sm text-gray-300">{submission.id || 'N/A'}</td>
-                    <td className="px-6 py-4 text-sm text-gray-300">{submission.name || 'N/A'}</td>
-                    <td className="px-6 py-4 text-sm text-gray-300">{submission.email || 'N/A'}</td>
-                    <td className="px-6 py-4 text-sm text-gray-300">{submission.phone || 'N/A'}</td>
-                    <td className="px-6 py-4 text-sm text-gray-300 max-w-xs">
-                      <div className="truncate" title={submission.message}>
-                        {submission.message || 'N/A'}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-300">
-                      {submission.sent_at ? new Date(submission.sent_at).toLocaleString() : 'N/A'}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
       </div>
     </div>
   );
