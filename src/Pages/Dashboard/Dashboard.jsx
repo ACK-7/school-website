@@ -23,20 +23,21 @@ import {
   FaCalendarCheck,
 } from "react-icons/fa";
 import { Users, UserCheck, UserX, TrendingUp, DollarSign, Calendar, Clock } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const menuItems = [
-    { label: "Dashboard", icon: <FaTachometerAlt /> },
-    { label: "Students", icon: <FaUserGraduate /> },
-    { label: "Teachers", icon: <FaChalkboardTeacher /> },  
-    { label: "Classes", icon: <FaBook /> },
-    { label: "Attendance", icon: <FaCalendarCheck /> },
-    { label: "Grades", icon: <FaClipboardList /> },
-    { label: "Events", icon: <FaCalendarAlt /> },
-    { label: "Message", icon: <FaEnvelope /> },
-    { label: "Reports", icon: <FaChartLine /> },
-    { label: "Settings", icon: <FaCog /> },
-    { label: "Log out", icon: <FaSignOutAlt /> },
+    { label: "Dashboard", icon: <FaTachometerAlt />, path: "/dashboard" },
+    { label: "Students", icon: <FaUserGraduate />, path: "/dashboard/students" },
+    { label: "Teachers", icon: <FaChalkboardTeacher />, path: "/dashboard/teachers" },  
+    { label: "Classes", icon: <FaBook />, path: "/dashboard/classes" },
+    { label: "Attendance", icon: <FaCalendarCheck />, path: "/dashboard/attendance" },
+    { label: "Grades", icon: <FaClipboardList />, path: "/dashboard/grades" },
+    { label: "Events", icon: <FaCalendarAlt />, path: "/dashboard/events" },
+    { label: "Messages", icon: <FaEnvelope />, path: "/dashboard/messages" },
+    { label: "Reports", icon: <FaChartLine />, path: "/dashboard/reports" },
+    { label: "Settings", icon: <FaCog />, path: "/dashboard/settings" },
+    { label: "Log out", icon: <FaSignOutAlt />, path: "/" },
   ];
 
   const stats = [
@@ -505,16 +506,17 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
         {/* Sidebar */}
         <aside className="space-y-2">
-          {menuItems.map(({ label, icon }, index) => (
-            <button
+          {menuItems.map(({ label, icon, path }, index) => (
+            <Link
               key={index}
+              to={path}
               className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg font-medium ${
-                label === "Dashboard" ? "bg-purple-600 text-white" : "bg-gray-800 hover:bg-gray-700"
+                window.location.pathname === path ? "bg-purple-600 text-white" : "bg-gray-800 hover:bg-gray-700"
               } transition`}
             >
               {icon}
               <span>{label}</span>
-            </button>
+            </Link>
           ))}
         </aside>
 

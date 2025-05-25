@@ -54,12 +54,19 @@ const App = () => {
           <Route path="/fees-structure" element={<FeesStructure />} caseSensitive={false} />
           <Route path="/curriculum" element={<Curriculum />} caseSensitive={false} />
           <Route path="/login" element={<Login />} />
-          <Route path="/message" element={<Message />} />
           <Route
             path="/dashboard"
             element={
               <RequireAuth>
                 <Dashboard />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/dashboard/messages"
+            element={
+              <RequireAuth>
+                <Message />
               </RequireAuth>
             }
           />
