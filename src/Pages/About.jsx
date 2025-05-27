@@ -4,6 +4,7 @@ import Banner from "../Components/About/Banner";
 import HistorySection from "../Components/About/HistorySection";
 import CampusSection from "../Components/About/CampusSection";
 import Footer from "../Components/Footer";
+import PhilosophySection from "../Components/About/PhilosophySection";
 
 const About = () => {
   return (
@@ -12,6 +13,7 @@ const About = () => {
       <Banner />
       <HistorySection />
       <CampusSection />
+      <PhilosophySection />
       <Footer />
     </div>
   );

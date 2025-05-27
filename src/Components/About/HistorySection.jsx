@@ -120,7 +120,7 @@ const HistorySection = () => {
   }, []);
 
   return (
-    <div className="bg-gray-700 text-white py-16 px-5 w-full overflow-hidden history-section">
+    <div className="bg-gray-700 text-white py-16 px-5 w-full overflow-hidden history-section ">
       <div className="max-w-7xl mx-auto flex flex-col">
         <div className="mb-5 history-title">
           <h2 className="text-4xl font-normal relative pb-2.5 text-white uppercase tracking-wider text-center">
