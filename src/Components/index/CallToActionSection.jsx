@@ -83,25 +83,37 @@ const CallToActionSection = () => {
 
     if (validateForm()) {
       axios
-        .post("http://localhost/API/seeta.php", formData)
+        .post("http://localhost/contact-backend/seeta.php", formData)
         .then((response) => {
-          console.log("Success:", response.data);
-          setFormData({
-            name: "",
-            email: "",
-            phone: "",
-            message: "",
-          });
-          setShowForm(false);
-          setShowSuccessMessage(true);
-          setTimeout(() => {
-            setShowSuccessMessage(false);
-            setShowForm(true);
-            navigate("/");
-          }, 3000);
+          console.log("Response from backend:", response.data);
+
+          // Only show success modal if message contains 'successfully'
+          if (
+            response.data.message &&
+            response.data.message.toLowerCase().includes("successfully")
+          ) {
+            setFormData({
+              name: "",
+              email: "",
+              phone: "",
+              message: "",
+            });
+            setShowForm(false);
+            setShowSuccessMessage(true);
+
+            setTimeout(() => {
+              setShowSuccessMessage(false);
+              setShowForm(true);
+              navigate("/");
+            }, 3000);
+          } else {
+            // Handle partial success or failure messages
+            alert(response.data.message || "An unexpected error occurred.");
+          }
         })
         .catch((error) => {
           console.error("Error:", error);
+          alert("Failed to send message. Please try again.");
         });
     }
   };
@@ -127,6 +139,7 @@ const CallToActionSection = () => {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
+                title="Google Map"
               ></iframe>
             </div>
           </div>
@@ -208,7 +221,13 @@ const CallToActionSection = () => {
                 <div className="absolute inset-0 flex items-center justify-center bg-white rounded-lg shadow-lg transform transition-all duration-500 ease-in-out">
                   <div className="text-center p-8">
                     <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg
+                        className="w-8 h-8 text-green-500"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                       </svg>
                     </div>
