@@ -24,37 +24,29 @@ export default function CurriculumPage() {
   useEffect(() => {
     // Hero animations
     const heroTl = gsap.timeline();
-    heroTl.from(heroRef.current.querySelector('h1'), {
-      duration: 1.2,
-      opacity: 0,
-      y: 30,
-      ease: "power3.out"
-    });
-    heroTl.from(heroRef.current.querySelector('p'), {
-      duration: 1,
-      opacity: 0,
-      y: 20,
-      ease: "power3.out"
-    }, "-=0.7");
+    heroTl.fromTo(heroRef.current?.querySelector('h1'), 
+      { opacity: 0, y: 30 },
+      { duration: 1.2, opacity: 1, y: 0, ease: "power3.out" }
+    );
+    heroTl.fromTo(heroRef.current?.querySelector('p'),
+      { opacity: 0, y: 20 },
+      { duration: 1, opacity: 1, y: 0, ease: "power3.out" },
+      "-=0.7"
+    );
 
     // About section animations
     ScrollTrigger.create({
       trigger: aboutRef.current,
       start: "top 80%",
       onEnter: () => {
-        gsap.from(aboutRef.current.querySelector('.about-text'), {
-          duration: 1,
-          x: 50,
-          opacity: 0,
-          ease: "power3.out"
-        });
-        gsap.from(aboutRef.current.querySelector('.about-image'), {
-          duration: 1,
-          x: -50,
-          opacity: 0,
-          ease: "power3.out",
-          delay: 0.3
-        });
+        gsap.fromTo(aboutRef.current?.querySelector('.about-text'),
+          { opacity: 0, x: 50 },
+          { duration: 1, opacity: 1, x: 0, ease: "power3.out" }
+        );
+        gsap.fromTo(aboutRef.current?.querySelector('.about-image'),
+          { opacity: 0, x: -50 },
+          { duration: 1, opacity: 1, x: 0, ease: "power3.out", delay: 0.3 }
+        );
       }
     });
 
@@ -63,14 +55,17 @@ export default function CurriculumPage() {
       trigger: cardsRef.current,
       start: "top 80%",
       onEnter: () => {
-        gsap.from(cardsRef.current.querySelectorAll('.curriculum-card'), {
-          duration: 0.8,
-          opacity: 0,
-          y: 30,
-          scale: 0.9,
-          stagger: 0.2,
-          ease: "back.out(1.5)"
-        });
+        gsap.fromTo(cardsRef.current?.querySelectorAll('.curriculum-card'),
+          { opacity: 0, y: 30, scale: 0.9 },
+          { 
+            duration: 0.8, 
+            opacity: 1, 
+            y: 0, 
+            scale: 1, 
+            stagger: 0.2, 
+            ease: "back.out(1.5)" 
+          }
+        );
       }
     });
 
@@ -79,21 +74,14 @@ export default function CurriculumPage() {
       trigger: subjectsRef.current,
       start: "top 80%",
       onEnter: () => {
-        gsap.from(subjectsRef.current.querySelectorAll('.tab-button'), {
-          duration: 0.5,
-          opacity: 0,
-          y: 20,
-          stagger: 0.1,
-          ease: "power2.out"
-        });
-        gsap.from(subjectsRef.current.querySelectorAll('.subject-item'), {
-          duration: 0.5,
-          opacity: 0,
-          x: -20,
-          stagger: 0.1,
-          ease: "power2.out",
-          delay: 0.3
-        });
+        gsap.fromTo(subjectsRef.current?.querySelectorAll('.tab-button'),
+          { opacity: 0, y: 20 },
+          { duration: 0.5, opacity: 1, y: 0, stagger: 0.1, ease: "power2.out" }
+        );
+        gsap.fromTo(subjectsRef.current?.querySelectorAll('.subject-item'),
+          { opacity: 0, x: -20 },
+          { duration: 0.5, opacity: 1, x: 0, stagger: 0.1, ease: "power2.out", delay: 0.3 }
+        );
       }
     });
 
@@ -102,13 +90,10 @@ export default function CurriculumPage() {
       trigger: galleryRef.current,
       start: "top 80%",
       onEnter: () => {
-        gsap.from(galleryRef.current.querySelectorAll('.gallery-image'), {
-          duration: 0.8,
-          opacity: 0,
-          scale: 0.8,
-          stagger: 0.15,
-          ease: "power3.out"
-        });
+        gsap.fromTo(galleryRef.current?.querySelectorAll('.gallery-image'),
+          { opacity: 0, scale: 0.8 },
+          { duration: 0.8, opacity: 1, scale: 1, stagger: 0.15, ease: "power3.out" }
+        );
       }
     });
 
@@ -117,14 +102,10 @@ export default function CurriculumPage() {
       trigger: downloadsRef.current,
       start: "top 85%",
       onEnter: () => {
-        gsap.from(downloadsRef.current.querySelectorAll('button'), {
-          duration: 0.7,
-          opacity: 0,
-          y: 20,
-          scale: 0.95,
-          stagger: 0.2,
-          ease: "back.out(1.7)"
-        });
+        gsap.fromTo(downloadsRef.current?.querySelectorAll('button'),
+          { opacity: 0, y: 20, scale: 0.95 },
+          { duration: 0.7, opacity: 1, y: 0, scale: 1, stagger: 0.2, ease: "back.out(1.7)" }
+        );
       }
     });
 
@@ -134,12 +115,10 @@ export default function CurriculumPage() {
         trigger: ctaRef.current,
         start: "top 90%",
         onEnter: () => {
-          gsap.from(ctaRef.current, {
-            duration: 0.8,
-            opacity: 0,
-            y: 10,
-            ease: "power2.out"
-          });
+          gsap.fromTo(ctaRef.current,
+            { opacity: 0, y: 10 },
+            { duration: 0.8, opacity: 1, y: 0, ease: "power2.out" }
+          );
         }
       });
     }
@@ -192,7 +171,7 @@ export default function CurriculumPage() {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Page Header / Hero Section */}
-      <section 
+      {/* <section 
         ref={heroRef}
         className="relative h-96 flex items-center justify-center text-white text-center px-4"
         style={{
@@ -207,7 +186,7 @@ export default function CurriculumPage() {
             Delivering quality, competency-based education under the Ugandan National Curriculum.
           </p>
         </div>
-      </section>
+      </section> */}
 
       {/* About Our Curriculum */}
       <section ref={aboutRef} className="py-16 px-4 max-w-6xl mx-auto">

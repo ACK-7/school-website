@@ -1,25 +1,25 @@
 import React, { useEffect } from 'react';
 import { gsap } from 'gsap';
-import bannerImage from '/src/assets/staff.png';
+import bannerImage from '/src/assets/admission-process.png';
 
 const Banner = () => {
   useEffect(() => {
     gsap.fromTo(
       '.banner-title',
-      { x: 200, opacity: 0 },
+      { x: -100, opacity: 0 },
       { x: 0, opacity: 1, duration: 1.5, delay: 0.3, ease: 'power2.out' }
     );
 
     gsap.fromTo(
       '.banner-text',
-      { x: 200, opacity: 0 },
+      { x: 100, opacity: 0 },
       { x: 0, opacity: 1, duration: 1.5, delay: 0.6, ease: 'power2.out' }
     );
 
     gsap.fromTo(
       '.banner-buttons',
-      { x: 200, opacity: 0 },
-      { x: 0, opacity: 1, duration: 1.2, delay: 0.9, ease: 'power2.out' }
+      { y: 50, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.2, delay: 0.9, ease: 'power2.out' }
     );
   }, []);
 
@@ -33,17 +33,16 @@ const Banner = () => {
       />
 
       {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#1f1f2e]/80 to-[#1f1f2e]/90 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#1f1f2e]/100 via-[#1f1f2e]/80 to-transparent z-10" />
 
       {/* Content */}
-      <div className="relative z-20 flex items-center justify-end h-full px-8 md:px-20">
-        <div className="max-w-2xl text-white space-y-6 text-right" dir="rtl">
-          {/* <p className="text-blue-400 font-semibold">// Nurturing minds, Building Futures</p> */}
-          <h1 className="banner-title text-4xl md:text-6xl font-bold leading-tight">
-          ,Empowering Educators<br />Inspiring Futures<br />Together
+      <div className="relative z-20 flex items-center h-full px-8 md:px-20">
+        <div className="max-w-2xl text-white space-y-6">
+          <h1 className="banner-title text-4xl md:text-6xl font-bold leading-tight">Join 
+            Seeta Schools<br />Your Journey Begins<br />Here
           </h1>
           <p className="banner-text text-gray-300">
-            we are dedicated to providing a rich and supportive learning environment that empowers students to discover their potential, achieve academic excellence, and become responsible global citizens
+           we are committed to making the application process smooth and accessible for every family. Follow our step-by-step guide to secure your place at Seeta Schools and become part of a thriving academic community.
           </p>
         </div>
       </div>
@@ -56,7 +55,7 @@ const Banner = () => {
           preserveAspectRatio="none"
         >
           <path
-            fill="#EFF5F9"
+            fill="#F9FBFD"
             d="M0,224L48,213.3C96,203,192,181,288,170.7C384,160,480,160,576,176C672,192,768,224,864,234.7C960,245,1056,235,1152,213.3C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
           ></path>
         </svg>

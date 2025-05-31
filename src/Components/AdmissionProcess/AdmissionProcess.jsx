@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import admissionProcessImage from '../../assets/admission-process.png'; 
+import { FileText, Send, CreditCard, Eye, CheckCircle, Award, Users, BookOpen, Heart } from 'lucide-react';
 
 // Register GSAP ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
@@ -55,6 +55,22 @@ const AdmissionsProcess = () => {
         scrollTrigger: {
           trigger: '.process-container',
           start: 'top 75%',
+        },
+      }
+    );
+
+    // Process image animation
+    gsap.fromTo(
+      '.process-image',
+      { opacity: 0, x: 100 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.process-container',
+          start: 'top 80%',
         },
       }
     );
@@ -121,67 +137,61 @@ const AdmissionsProcess = () => {
         },
       }
     );
+
+    // Alert image animation
+    gsap.fromTo(
+      '.alert-image',
+      { opacity: 0, scale: 0.8 },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.alert-section',
+          start: 'top 80%',
+        },
+      }
+    );
   }, []);
 
+  const processSteps = [
+    { 
+      text: 'Fill out the Request More Information form to receive application materials from our Admissions Office.',
+      icon: FileText,
+      color: 'text-blue-600'
+    },
+    { 
+      text: 'Complete and submit the application form along with all required supporting documents.',
+      icon: Send,
+      color: 'text-green-600'
+    },
+    { 
+      text: 'Pay the non-refundable application processing fee to proceed with your application.',
+      icon: CreditCard,
+      color: 'text-purple-600'
+    },
+    { 
+      text: "Once all materials are received, your child's application will be reviewed and placed on the appropriate waiting list based on submission date.",
+      icon: Eye,
+      color: 'text-orange-600'
+    },
+    { 
+      text: 'If a spot is available, provisional acceptance will be granted. Submit enrollment forms and deposit within 30 days to secure your place.',
+      icon: CheckCircle,
+      color: 'text-teal-600'
+    },
+    { 
+      text: 'Upon receipt and review of enrollment forms and full deposit payment, final acceptance will be confirmed.',
+      icon: Award,
+      color: 'text-red-600'
+    },
+  ];
+
   return (
-    <div className="bg-gray-100 font-sans">
-      {/* Hero Section */}
-      
-      <section className="relative h-screen bg-gradient-to-br  text-white overflow-hidden ">
-        
-        <img
-          src={admissionProcessImage}
-          alt="Vibrant school campus with students walking"
-          className="hero-image absolute inset-0 w-full h-full object-cover "
-        />
-        <div className="absolute inset-0 bg-black/50"></div>
-        <div className="container mx-auto px-6 h-full flex items-center justify-center ">
-          <div className="text-center z-10 ">
-            <h1 className="hero-title text-5xl md:text-6xl font-extrabold mb-6 drop-shadow-lg">
-              Admission Process Overview
-            </h1>
-            <p className="hero-subtitle text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed">
-              Embark on a transformative educational journey at Seeta High School, where excellence meets opportunity.
-            </p>
-            <a
-              href="/apply"
-              className="mt-6 inline-block bg-white text-blue-700 font-semibold py-3 px-8 rounded-full hover:bg-blue-100 transition duration-300 shadow-lg"
-            >
-              Start Your Journey
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Banner Component */}
-      <section className="py-16 bg-white">
-        <div className="banner-container container mx-auto px-6">
-          <div className="relative bg-blue-50 rounded-2xl p-10 shadow-xl overflow-hidden">
-            <img
-              src="https://via.placeholder.com/600x400?text=School+Community"
-              alt="Students collaborating in a classroom"
-              className="absolute inset-0 w-full h-full object-cover opacity-20"
-            />
-            <div className="relative z-10 text-center">
-              <h2 className="text-4xl font-bold text-blue-900 mb-6">
-                Join the Seeta Family
-              </h2>
-              <p className="text-gray-700 text-lg max-w-3xl mx-auto mb-8 leading-relaxed">
-                Discover a vibrant community that fosters academic excellence, personal growth, and spiritual development. Schedule a campus tour or attend an open house to experience Seeta High School firsthand.
-              </p>
-              <a
-                href="/apply"
-                className="inline-block bg-blue-600 text-white font-semibold py-3 px-8 rounded-full hover:bg-blue-700 transition duration-300 shadow-md"
-              >
-                Apply Now
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
+    <div className="bg-gray-50 font-sans">
       {/* Main Content */}
-      <section className="py-20 bg-gray-100">
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="container mx-auto px-6">
           <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-8">
             Prospective Students
@@ -193,33 +203,65 @@ const AdmissionsProcess = () => {
             </a>.
           </p>
 
-          <h3 className="text-3xl font-semibold text-center text-gray-800 mb-10">
+          <h3 className="text-3xl font-semibold text-center text-gray-800 mb-12">
             Our Admissions Process
           </h3>
-          <div className="process-container max-w-4xl mx-auto">
-            {[
-              { text: 'Fill out the Request More Information form to receive application materials from our Admissions Office.', img: 'https://via.placeholder.com/150?text=Form' },
-              { text: 'Complete and submit the application form along with all required supporting documents.', img: 'https://via.placeholder.com/150?text=Application' },
-              { text: 'Pay the non-refundable application processing fee to proceed with your application.', img: 'https://via.placeholder.com/150?text=Payment' },
-              { text: 'Once all materials are received, your child’s application will be reviewed and placed on the appropriate waiting list based on submission date.', img: 'https://via.placeholder.com/150?text=Review' },
-              { text: 'If a spot is available, provisional acceptance will be granted. Submit enrollment forms and deposit within 30 days to secure your place.', img: 'https://via.placeholder.com/150?text=Acceptance' },
-              { text: 'Upon receipt and review of enrollment forms and full deposit payment, final acceptance will be confirmed.', img: 'https://via.placeholder.com/150?text=Confirmation' },
-            ].map((step, index) => (
-              <div
-                key={index}
-                className="process-item flex items-center mb-8 p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300"
-              >
-                <img
-                  src={step.img}
-                  alt={`Step ${index + 1} illustration`}
-                  className="w-16 h-16 object-cover rounded-full mr-6"
-                />
-                <div>
-                  <span className="text-blue-600 font-bold text-2xl mr-4">{index + 1}.</span>
-                  <p className="text-gray-700 text-lg">{step.text}</p>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+            {/* Process Steps */}
+            <div className="process-container">
+              {processSteps.map((step, index) => {
+                const IconComponent = step.icon;
+                return (
+                  <div
+                    key={index}
+                    className="process-item flex items-start mb-6 p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:scale-[1.02]"
+                  >
+                    <div className={`flex-shrink-0 w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mr-4 ${step.color}`}>
+                      <IconComponent size={24} />
+                    </div>
+                    <div className="flex-1">
+                      <span className="text-blue-600 font-bold text-xl mr-3">{index + 1}.</span>
+                      <p className="text-gray-700 text-base leading-relaxed inline">{step.text}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Process Illustration */}
+            <div className="process-image relative">
+              <div className="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-8 shadow-xl">
+                <div className="text-center mb-6">
+                  <div className="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <BookOpen size={40} className="text-white" />
+                  </div>
+                  <h4 className="text-2xl font-bold text-gray-800 mb-2">Join Our Community</h4>
+                  <p className="text-gray-600">Your journey to excellence starts here</p>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="flex items-center p-3 bg-white rounded-lg shadow-sm">
+                    <Users size={20} className="text-blue-600 mr-3" />
+                    <span className="text-gray-700">Supportive Learning Environment</span>
+                  </div>
+                  <div className="flex items-center p-3 bg-white rounded-lg shadow-sm">
+                    <Heart size={20} className="text-red-500 mr-3" />
+                    <span className="text-gray-700">Holistic Development Focus</span>
+                  </div>
+                  <div className="flex items-center p-3 bg-white rounded-lg shadow-sm">
+                    <Award size={20} className="text-yellow-600 mr-3" />
+                    <span className="text-gray-700">Academic Excellence</span>
+                  </div>
+                </div>
+
+                <div className="mt-6 text-center">
+                  <button className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition duration-300 shadow-md transform hover:scale-105">
+                    Start Your Application
+                  </button>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
@@ -227,7 +269,7 @@ const AdmissionsProcess = () => {
       {/* Quote Section */}
       <section className="quote-section relative py-20 bg-blue-100 overflow-hidden">
         <img
-          src="https://via.placeholder.com/1920x600?text=Inspirational+Background"
+          src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
           alt="Inspirational school background with students"
           className="quote-image absolute inset-0 w-full h-full object-cover opacity-30"
         />
@@ -250,22 +292,22 @@ const AdmissionsProcess = () => {
               {
                 title: 'Holistic Education',
                 text: 'Our curriculum integrates academic rigor with spiritual and personal growth, preparing students for success in all aspects of life.',
-                img: 'https://via.placeholder.com/400x300?text=Holistic+Education',
+                img: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
               },
               {
                 title: 'Dedicated Faculty',
-                text: 'Our experienced educators are committed to nurturing each student’s unique talents and fostering a love for learning.',
-                img: 'https://via.placeholder.com/400x300?text=Faculty',
+                text: "Our experienced educators are committed to nurturing each student's unique talents and fostering a love for learning.",
+                img: 'https://images.unsplash.com/photo-1544717297-fa95b6ee9643?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
               },
               {
                 title: 'Vibrant Community',
                 text: 'Join a supportive community where students build lifelong friendships and engage in diverse extracurricular activities.',
-                img: 'https://via.placeholder.com/400x300?text=Community',
+                img: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
               },
             ].map((feature, index) => (
               <div
                 key={index}
-                className="feature-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300"
+                className="feature-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:transform hover:scale-105"
               >
                 <img
                   src={feature.img}
@@ -280,23 +322,52 @@ const AdmissionsProcess = () => {
         </div>
       </section>
 
-      {/* Alert Section */}
-      <section className="alert-section py-20 bg-gray-100">
+      {/* Enhanced Alert Section */}
+      <section className="alert-section py-20 bg-gradient-to-br from-gray-100 to-blue-50">
         <div className="container mx-auto px-6">
-          <div className="relative bg-blue-50 p-8 rounded-xl shadow-lg overflow-hidden">
-            <img
-              src="https://via.placeholder.com/600x400?text=School+Notice"
-              alt="School notice board"
-              className="absolute inset-0 w-full h-full object-cover opacity-20"
-            />
-            <div className="relative z-10">
-              <h4 className="text-2xl font-semibold text-blue-800 mb-6">Important Notes for Applicants</h4>
-              <ul className="list-disc list-inside text-gray-700 text-lg space-y-3">
-                <li>Submit results of a standardized achievement test from the last two years.</li>
-                <li>Non-native English speakers must provide English Proficiency test results.</li>
-                <li>New high school students will take math and foreign language screening tests.</li>
-                <li>Band and choir applicants must audition for enrollment.</li>
-              </ul>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            {/* Alert Content */}
+            <div className="bg-white p-8 rounded-xl shadow-lg">
+              <h4 className="text-2xl font-semibold text-blue-800 mb-6 flex items-center">
+                <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3">
+                  <span className="text-red-600 font-bold">!</span>
+                </div>
+                Important Notes for Applicants
+              </h4>
+              <div className="space-y-4">
+                <div className="flex items-start p-4 bg-red-50 rounded-lg border-l-4 border-red-400">
+                  <FileText size={20} className="text-red-600 mr-3 mt-1 flex-shrink-0" />
+                  <p className="text-gray-700">Submit results of a standardized achievement test from the last two years.</p>
+                </div>
+                <div className="flex items-start p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                  <BookOpen size={20} className="text-blue-600 mr-3 mt-1 flex-shrink-0" />
+                  <p className="text-gray-700">Non-native English speakers must provide English Proficiency test results.</p>
+                </div>
+                <div className="flex items-start p-4 bg-green-50 rounded-lg border-l-4 border-green-400">
+                  <Award size={20} className="text-green-600 mr-3 mt-1 flex-shrink-0" />
+                  <p className="text-gray-700">New high school students will take math and foreign language screening tests.</p>
+                </div>
+                <div className="flex items-start p-4 bg-purple-50 rounded-lg border-l-4 border-purple-400">
+                  <Heart size={20} className="text-purple-600 mr-3 mt-1 flex-shrink-0" />
+                  <p className="text-gray-700">Band and choir applicants must audition for enrollment.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Alert Image */}
+            <div className="alert-image">
+              <div className="relative">
+                <img
+                  src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
+                  alt="Students studying and preparing for applications"
+                  className="w-full h-80 object-cover rounded-xl shadow-lg"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
+                <div className="absolute bottom-6 left-6 text-white">
+                  <h5 className="text-xl font-semibold mb-2">Ready to Apply?</h5>
+                  <p className="text-sm opacity-90">Review all requirements carefully</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

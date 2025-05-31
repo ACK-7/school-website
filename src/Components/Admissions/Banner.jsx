@@ -1,74 +1,66 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { gsap } from 'gsap';
+import bannerImage from '/src/assets/bannerPic.png';
 
 const Banner = () => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  
   useEffect(() => {
-    // Handle window resize
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    
-    window.addEventListener('resize', handleResize);
-    
-    // Animation for the title sliding in from the left
     gsap.fromTo(
       '.banner-title',
-      {
-        x: '-100%',
-        opacity: 0,
-      },
-      {
-        duration: 2,
-        x: '0%',
-        opacity: 1,
-        ease: 'power2.out',
-        delay: 0.5,
-      }
+      { x: -100, opacity: 0 },
+      { x: 0, opacity: 1, duration: 1.5, delay: 0.3, ease: 'power2.out' }
     );
-    
-    // Animation for the paragraph text sliding in from the right
+
     gsap.fromTo(
       '.banner-text',
-      {
-        x: '100%',
-        opacity: 0,
-      },
-      {
-        duration: 2,
-        x: '0%',
-        opacity: 1,
-        ease: 'power2.out',
-        delay: 0.5,
-      }
+      { x: 100, opacity: 0 },
+      { x: 0, opacity: 1, duration: 1.5, delay: 0.6, ease: 'power2.out' }
     );
-    
-    // Cleanup event listener
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
+
+    gsap.fromTo(
+      '.banner-buttons',
+      { y: 50, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.2, delay: 0.9, ease: 'power2.out' }
+    );
   }, []);
-  
-  // Choose image based on screen size
-  const bannerImage = windowWidth <= 768 ? "src/assets/staff.png" : "src/assets/staff.png";
-  
+
   return (
-    <div className="relative overflow-hidden h-screen w-full">
-      <img 
-        src={bannerImage} 
-        alt="Faculty" 
-        className="w-full h-screen object-cover block" 
+    <section className="relative h-screen w-full overflow-hidden">
+      {/* Background Image */}
+      <img
+        src={bannerImage}
+        alt="Team"
+        className="absolute inset-0 w-full h-full object-cover z-0"
       />
-      <div className="absolute inset-0 bg-black/40 flex flex-col items-start justify-start pl-20 pt-[350px]">
-        <h1 className="banner-title text-[80px] text-left text-yellow-500 font-serif mt-[500px] ml-[50px] opacity-0 md:text-[60px] md:mt-[200px] sm:text-[40px] sm:mt-[500px] sm:ml-[10px] xs:text-[30px] xs:mt-[50px] xs:ml-[20px]">
-          Administration
-        </h1>
-        <p className="banner-text text-[25px] text-left text-white ml-[50px] mb-[50px] opacity-0 md:text-[20px] sm:text-[16px] sm:ml-[10px] xs:text-[14px] xs:ml-[20px]">
-          Our dedicated administrators provide strong leadership and ensure the smooth operation of the school, fostering a supportive environment for both students and staff.
-        </p>
+
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#1f1f2e]/100 via-[#1f1f2e]/80 to-transparent z-10" />
+
+      {/* Content */}
+      <div className="relative z-20 flex items-center h-full px-8 md:px-20">
+        <div className="max-w-2xl text-white space-y-6">
+          <h1 className="banner-title text-4xl md:text-6xl font-bold leading-tight">
+            Apply Now,<br />Shape Your Child's Future Today
+          </h1>
+          <p className="banner-text text-gray-300">
+            we welcome you to take the first step toward a brighter future by applying to Seeta High School — where innovation meets excellence, and every learner is nurtured to thrive academically, socially, and morally
+          </p>
+        </div>
       </div>
-    </div>
+
+      {/* SVG Wave Divider */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 ">
+        <svg
+          className="w-full h-24 md:h-32 lg:h-40"
+          viewBox="0 0 1440 320"
+          preserveAspectRatio="none"
+        >
+          <path
+            fill="#f6faff"
+            d="M0,224L48,213.3C96,203,192,181,288,170.7C384,160,480,160,576,176C672,192,768,224,864,234.7C960,245,1056,235,1152,213.3C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+          ></path>
+        </svg>
+      </div>
+    </section>
   );
 };
 

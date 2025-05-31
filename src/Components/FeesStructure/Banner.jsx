@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { gsap } from 'gsap';
+import { Bell } from 'lucide-react'; // using lucide-react for the bell icon
 import bannerImage from '/src/assets/bannerPic.png';
 
 const Banner = () => {
@@ -17,7 +18,7 @@ const Banner = () => {
     );
 
     gsap.fromTo(
-      '.banner-buttons',
+      '.banner-notice',
       { y: 50, opacity: 0 },
       { y: 0, opacity: 1, duration: 1.2, delay: 0.9, ease: 'power2.out' }
     );
@@ -28,7 +29,7 @@ const Banner = () => {
       {/* Background Image */}
       <img
         src={bannerImage}
-        alt="Team"
+        alt="Banner"
         className="absolute inset-0 w-full h-full object-cover z-0"
       />
 
@@ -37,33 +38,33 @@ const Banner = () => {
 
       {/* Content */}
       <div className="relative z-20 flex items-center h-full px-8 md:px-20">
-        <div className="max-w-2xl text-white space-y-6">
-          <h1 className="banner-title text-4xl md:text-6xl font-bold leading-tight">
-            Our guiding<br />Statements & <br />Philosophy
+        <div className="max-w-3xl text-white space-y-6">
+          <h1 className="banner-title text-4xl md:text-6xl font-bold leading-tight flex items-center gap-3">
+            🎓 School Fees Structure
           </h1>
-          <p className="banner-text text-gray-300">
-            we believe in shaping learners through excellence, integrity, and purpose. our philosophy is rooted in the holistic development of each student — nurturing academic strength, moral character, leadership, and creativity to prepare them for a rapidly changing world.
+          <p className="banner-text text-lg md:text-xl text-gray-200">
+            Investing in your child's future through quality education at Seeta High School.
           </p>
-          {/* <div className="banner-buttons flex gap-4">
-            <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full font-medium transition-all duration-300">
-              Our Programs →
-            </button>
-            <button className="text-white underline hover:text-blue-400 transition duration-300 text-2xl">
-              Student Life
-            </button>
-          </div> */}
+          <div className="banner-notice bg-white text-gray-900 rounded-lg p-5 shadow-md max-w-2xl">
+            <div className="flex items-start gap-3">
+              <Bell className="text-blue-600 mt-1" />
+              <p className="text-center md:text-left text-base md:text-lg">
+                All fees should be paid through the school bank account. No cash payments are accepted at school.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* SVG Wave Divider */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 ">
+      <div className="absolute bottom-0 left-0 right-0 z-10">
         <svg
           className="w-full h-24 md:h-32 lg:h-40"
           viewBox="0 0 1440 320"
           preserveAspectRatio="none"
         >
           <path
-            fill="#F8FBFE"
+            fill="#fff"
             d="M0,224L48,213.3C96,203,192,181,288,170.7C384,160,480,160,576,176C672,192,768,224,864,234.7C960,245,1056,235,1152,213.3C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
           ></path>
         </svg>

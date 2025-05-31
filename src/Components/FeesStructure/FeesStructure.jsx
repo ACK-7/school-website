@@ -344,35 +344,8 @@ const SchoolFeesStructure = () => {
 
   return (
     <>
-      {/* Hero Section */}
-      <div ref={heroRef} className="bg-blue-900 text-white py-24 relative overflow-hidden">
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center">
-              <i className="fas fa-graduation-cap mr-2"></i>
-              School Fees Structure
-            </h1>
-            <p className="text-xl md:text-2xl mb-8">
-              Investing in your child's future through quality education at Seeta High School.
-            </p>
-            
-            <div className="bg-white text-gray-800 p-4 rounded-lg shadow-lg max-w-2xl mx-auto">
-              <div className="flex items-center">
-                <i className="fas fa-bell text-blue-600 mr-2 text-xl"></i>
-                <p className="text-lg">All fees should be paid through the school bank account. No cash payments are accepted at school.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Background animated elements */}
-        <div className="absolute top-0 left-0 w-full h-full opacity-10">
-          <div className="absolute top-10 left-10 w-20 h-20 rounded-full bg-blue-300 animate-float-slow"></div>
-          <div className="absolute top-40 right-20 w-32 h-32 rounded-full bg-blue-400 animate-float-medium"></div>
-          <div className="absolute bottom-10 left-1/4 w-24 h-24 rounded-full bg-blue-200 animate-float-fast"></div>
-          <div className="absolute bottom-40 right-1/3 w-16 h-16 rounded-full bg-blue-500 animate-float-medium"></div>
-        </div>
-      </div>
+      
+      
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-12">
