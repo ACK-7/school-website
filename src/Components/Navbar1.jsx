@@ -347,7 +347,8 @@ const Navbar = () => {
             </li>
             
             <li className={`relative ${isMobile ? 'w-full border-b border-white/10' : ''}`}>
-              <Link className={`text-white font-medium py-2 px-4 transition-all duration-300 ease-in-out no-underline flex justify-between items-center hover:bg-white/10 ${isMobile ? 'py-4 px-0 text-lg' : ''}`} to="/contact-us">Contact Us</Link>
+              <Link 
+              className={`text-white font-medium py-2 px-4 transition-all duration-300 ease-in-out no-underline flex justify-between items-center hover:bg-white/10 ${isMobile ? 'py-4 px-0 text-lg' : ''}`} to="/contact-us">Contact Us</Link>
             </li>
           </ul>
           <div className="flex items-center gap-4">

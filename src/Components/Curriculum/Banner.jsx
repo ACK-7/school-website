@@ -38,21 +38,12 @@ const Banner = () => {
       {/* Content */}
       <div className="relative z-20 flex items-center h-full px-8 md:px-20">
         <div className="max-w-2xl text-white space-y-6">
-          <p className="text-blue-400 font-semibold">// Nurturing minds, Building Futures</p>
           <h1 className="banner-title text-4xl md:text-6xl font-bold leading-tight">
-            Seeta Schools<br />Where Every Student<br />Thrives
+            Our Curriculum<br />Designed To Inspire<br />And Empower
           </h1>
           <p className="banner-text text-gray-300">
-            we are dedicated to providing a rich and supportive learning environment that empowers students to discover their potential, achieve academic excellence, and become responsible global citizens.
+            we provide a dynamic and inclusive curriculum that nurtures critical thinking, creativity, and lifelong learning. our programs are tailored to meet the diverse needs of every student, preparing them for success in academics and beyond.
           </p>
-          <div className="banner-buttons flex gap-4">
-            <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full font-medium transition-all duration-300">
-              Our Programs →
-            </button>
-            <button className="text-white underline hover:text-blue-400 transition duration-300 text-2xl">
-              Student Life
-            </button>
-          </div>
         </div>
       </div>
 
@@ -64,7 +55,7 @@ const Banner = () => {
           preserveAspectRatio="none"
         >
           <path
-            fill="#344054"
+            fill="#f8f9fa"
             d="M0,224L48,213.3C96,203,192,181,288,170.7C384,160,480,160,576,176C672,192,768,224,864,234.7C960,245,1056,235,1152,213.3C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
           ></path>
         </svg>

@@ -12,7 +12,6 @@ import "./index.css";
 import About from "./Pages/About";
 import Administration from "./Pages/AdministrationP";
 import Statements from "./Pages/StatementsP";
-import Contact from "./Pages/Contact";
 import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
@@ -21,6 +20,11 @@ import AdmissionsProcess from "./Pages/AdmissionProcess";
 import FeesStructure from "./Pages/FeesStructure";
 import Curriculum from "./Pages/Curriculum";
 import Message from "./Pages/Dashboard/Message";
+import Calendar from "./Pages/Calendar";
+import Clubs from "./Pages/Clubs";
+import Sports from "./Pages/Sports";
+import Gallery from "./Pages/Gallery";
+import ContactUs from "./Pages/ContactUs";
 
 function RequireAuth({ children }) {
   const { isAuthenticated } = useAuth();
@@ -49,10 +53,14 @@ const App = () => {
             caseSensitive={false}
           />
           <Route path="/apply" element={<Apply />} caseSensitive={false} />
-          <Route path="/contact" element={<Contact />} caseSensitive={false} />
           <Route path="/admission-overview" element={<AdmissionsProcess />} caseSensitive={false} />
           <Route path="/fees-structure" element={<FeesStructure />} caseSensitive={false} />
           <Route path="/curriculum" element={<Curriculum />} caseSensitive={false} />
+          <Route path="/academic-calendar" element={<Calendar />} caseSensitive={false} />
+          <Route path="/student-clubs" element={<Clubs />} caseSensitive={false} />
+          <Route path="/sports-athletics" element={<Sports />} caseSensitive={false} />
+          <Route path="/gallery" element={<Gallery />} caseSensitive={false} />
+          <Route path="/contact-us" element={<ContactUs />} caseSensitive={false} />
           <Route path="/login" element={<Login />} />
           <Route
             path="/dashboard"
