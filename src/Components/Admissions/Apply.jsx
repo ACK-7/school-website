@@ -12,10 +12,10 @@ const ApplyNow = () => {
       ".feature-card",
       { opacity: 0, y: 50 },
       {
-        opacity: 1,
+        opacity: 2,
         y: 50,
         duration: 1,
-        stagger: 0.3,
+        stagger: 0.1,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 80%",
@@ -31,7 +31,7 @@ const ApplyNow = () => {
       ".timeline-item",
       { opacity: 0, x: -100 },
       {
-        opacity: 1,
+        opacity: 2,
         x: 0,
         duration: 1,
         stagger: 0.3,

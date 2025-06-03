@@ -2,6 +2,12 @@ import React, { useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FileText, Send, CreditCard, Eye, CheckCircle, Award, Users, BookOpen, Heart } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import image from "../../assets/quote.jpg";
+import image1 from "../../assets/holistic.jpg";
+import image2 from "../../assets/faculty.png";
+import image3 from "../../assets/vibrant.jpg";
+import image4 from "../../assets/ready.png";
 
 // Register GSAP ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
@@ -12,17 +18,48 @@ const AdmissionsProcess = () => {
     gsap.fromTo(
       '.hero-title',
       { opacity: 0, y: 100 },
-      { opacity: 1, y: 0, duration: 1.2, ease: 'power4.out' }
+      { 
+        opacity: 1, 
+        y: 0, 
+        duration: 1.2, 
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: '.hero-title',
+          start: 'top 80%',
+          scrub: 1
+        }
+      }
     );
     gsap.fromTo(
       '.hero-subtitle',
       { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, duration: 1.2, delay: 0.4, ease: 'power4.out' }
+      { 
+        opacity: 1, 
+        y: 0, 
+        duration: 1.2, 
+        delay: 0.4, 
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: '.hero-subtitle',
+          start: 'top 80%',
+          scrub: 1
+        }
+      }
     );
     gsap.fromTo(
       '.hero-image',
       { scale: 1.2, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 2, ease: 'power3.out' }
+      { 
+        scale: 1, 
+        opacity: 1, 
+        duration: 2, 
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.hero-image',
+          start: 'top 80%',
+          scrub: 1
+        }
+      }
     );
 
     // Banner animation with scale and fade
@@ -37,11 +74,12 @@ const AdmissionsProcess = () => {
         scrollTrigger: {
           trigger: '.banner-container',
           start: 'top 80%',
+          scrub: 1
         },
       }
     );
 
-    // Process items animation with staggered reveal
+    
     gsap.fromTo(
       '.process-item',
       { opacity: 0, y: 50, scale: 0.95 },
@@ -55,11 +93,12 @@ const AdmissionsProcess = () => {
         scrollTrigger: {
           trigger: '.process-container',
           start: 'top 75%',
+          scrub: 1
         },
       }
     );
 
-    // Process image animation
+    
     gsap.fromTo(
       '.process-image',
       { opacity: 0, x: 100 },
@@ -71,25 +110,12 @@ const AdmissionsProcess = () => {
         scrollTrigger: {
           trigger: '.process-container',
           start: 'top 80%',
+          scrub: 1
         },
       }
     );
 
-    // Quote section with parallax background
-    gsap.fromTo(
-      '.quote-image',
-      { y: 100 },
-      {
-        y: -100,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.quote-section',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-        },
-      }
-    );
+    // Quote section with static background
     gsap.fromTo(
       '.quote-content',
       { opacity: 0, y: 30 },
@@ -101,6 +127,7 @@ const AdmissionsProcess = () => {
         scrollTrigger: {
           trigger: '.quote-section',
           start: 'top 80%',
+          scrub: 1
         },
       }
     );
@@ -110,7 +137,7 @@ const AdmissionsProcess = () => {
       '.feature-card',
       { opacity: 0, y: 50 },
       {
-        opacity: 1,
+        opacity: 2,
         y: 0,
         duration: 0.8,
         stagger: 0.2,
@@ -118,6 +145,7 @@ const AdmissionsProcess = () => {
         scrollTrigger: {
           trigger: '.features-container',
           start: 'top 75%',
+          scrub: 1
         },
       }
     );
@@ -134,6 +162,7 @@ const AdmissionsProcess = () => {
         scrollTrigger: {
           trigger: '.alert-section',
           start: 'top 80%',
+          scrub: 1
         },
       }
     );
@@ -150,6 +179,7 @@ const AdmissionsProcess = () => {
         scrollTrigger: {
           trigger: '.alert-section',
           start: 'top 80%',
+          scrub: 1
         },
       }
     );
@@ -256,9 +286,12 @@ const AdmissionsProcess = () => {
                 </div>
 
                 <div className="mt-6 text-center">
-                  <button className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition duration-300 shadow-md transform hover:scale-105">
+                  <Link 
+                    to="/apply"
+                    className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition duration-300 shadow-md transform hover:scale-105 inline-block"
+                  >
                     Start Your Application
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -269,7 +302,7 @@ const AdmissionsProcess = () => {
       {/* Quote Section */}
       <section className="quote-section relative py-20 bg-blue-100 overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+          src={image}
           alt="Inspirational school background with students"
           className="quote-image absolute inset-0 w-full h-full object-cover opacity-30"
         />
@@ -292,17 +325,17 @@ const AdmissionsProcess = () => {
               {
                 title: 'Holistic Education',
                 text: 'Our curriculum integrates academic rigor with spiritual and personal growth, preparing students for success in all aspects of life.',
-                img: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
+                img: image1,
               },
               {
                 title: 'Dedicated Faculty',
                 text: "Our experienced educators are committed to nurturing each student's unique talents and fostering a love for learning.",
-                img: 'https://images.unsplash.com/photo-1544717297-fa95b6ee9643?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
+                img: image2,
               },
               {
                 title: 'Vibrant Community',
                 text: 'Join a supportive community where students build lifelong friendships and engage in diverse extracurricular activities.',
-                img: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300&q=80',
+                img: image3,
               },
             ].map((feature, index) => (
               <div
@@ -322,12 +355,12 @@ const AdmissionsProcess = () => {
         </div>
       </section>
 
-      {/* Enhanced Alert Section */}
+      {/* Alert Section */}
       <section className="alert-section py-20 bg-gradient-to-br from-gray-100 to-blue-50">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
             {/* Alert Content */}
-            <div className="bg-white p-8 rounded-xl shadow-lg">
+            <div className="bg-white p-8 rounded-xl shadow-lg h-full">
               <h4 className="text-2xl font-semibold text-blue-800 mb-6 flex items-center">
                 <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3">
                   <span className="text-red-600 font-bold">!</span>
@@ -355,12 +388,12 @@ const AdmissionsProcess = () => {
             </div>
 
             {/* Alert Image */}
-            <div className="alert-image">
-              <div className="relative">
+            <div className="alert-image h-full">
+              <div className="relative h-full">
                 <img
-                  src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80"
+                  src={image4}
                   alt="Students studying and preparing for applications"
-                  className="w-full h-80 object-cover rounded-xl shadow-lg"
+                  className="w-full h-full object-cover rounded-xl shadow-lg"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
                 <div className="absolute bottom-6 left-6 text-white">

@@ -26,6 +26,7 @@ const CallToActionSection = () => {
 
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showForm, setShowForm] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -79,10 +80,13 @@ const CallToActionSection = () => {
     e.preventDefault();
 
     if (validateForm()) {
+      setLoading(true);
       axios
         .post("http://localhost/contact-backend/seeta.php", formData)
         .then((response) => {
           console.log("Response from backend:", response.data);
+
+          setLoading(false);
 
           // Only show success modal if message contains 'successfully'
           if (
@@ -110,6 +114,7 @@ const CallToActionSection = () => {
         })
         .catch((error) => {
           console.error("Error:", error);
+          setLoading(false);
           alert("Failed to send message. Please try again.");
         });
     }
@@ -119,6 +124,13 @@ const CallToActionSection = () => {
   const PaperPlaneIcon = () => (
     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
       <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/>
+    </svg>
+  );
+
+  const SpinnerIcon = () => (
+    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
     </svg>
   );
 
@@ -252,10 +264,11 @@ const CallToActionSection = () => {
 
                   <button
                     type="submit"
-                    className="w-full py-4 bg-yellow-500 hover:bg-yellow-600 text-white rounded-xl font-semibold flex items-center justify-center gap-3 transition-all duration-300 transform hover:scale-[1.02] active:scale-95 shadow-lg hover:shadow-xl cursor-pointer"
+                    disabled={loading}
+                    className={`w-full py-4 bg-yellow-500 hover:bg-yellow-600 text-white rounded-xl font-semibold flex items-center justify-center gap-3 transition-all duration-300 transform shadow-lg hover:shadow-xl ${loading ? 'opacity-75 cursor-not-allowed' : 'hover:scale-[1.02] active:scale-95 cursor-pointer'}`}
                   >
-                    <PaperPlaneIcon />
-                    Send Message
+                    {loading ? <SpinnerIcon /> : <PaperPlaneIcon />}
+                    {loading ? 'Sending...' : 'Send Message'}
                   </button>
                 </form>
               )}

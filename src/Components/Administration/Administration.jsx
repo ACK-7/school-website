@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import staffImage from "../../assets/admission-process.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -214,7 +215,7 @@ const Administration = () => {
                 </div>
                 <div className="md:w-1/2 img1">
                   <img
-                    src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                    src={staffImage}
                     alt="School administrators collaborating"
                     className="rounded-xl shadow-2xl object-cover w-full h-72 md:h-96 transition-transform duration-500 hover:scale-105"
                   />

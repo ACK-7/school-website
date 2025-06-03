@@ -275,56 +275,132 @@ const SchoolFeesStructure = () => {
     gsap.fromTo(
       heroRef.current,
       { opacity: 0, y: -100 },
-      { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" }
+      { 
+        opacity: 1, 
+        y: 0, 
+        duration: 1.2, 
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top 80%",
+          scrub: 1
+        }
+      }
     );
 
     // Term buttons animation
     gsap.fromTo(
       termButtonsRef.current,
       { opacity: 0, scale: 0.8 },
-      { opacity: 1, scale: 1, duration: 0.8, delay: 0.5, ease: "back.out(1.7)" }
+      { 
+        opacity: 1, 
+        scale: 1, 
+        duration: 0.8, 
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: termButtonsRef.current,
+          start: "top 80%",
+          scrub: 1
+        }
+      }
     );
 
     // Fee cards initial animation
     gsap.fromTo(
-      [oLevelCardRef.current, aLevelCardRef.current],
-      { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, duration: 0.8, delay: 0.8, stagger: 0.2, ease: "power3.out" }
+      oLevelCardRef.current,
+      { opacity: 0, x: -100 },
+      { 
+        opacity: 1, 
+        x: 0, 
+        duration: 0.8, 
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: oLevelCardRef.current,
+          start: "top 80%",
+          scrub: 1
+        }
+      }
     );
 
-    // Scroll animations
     gsap.fromTo(
-      additionalReqRef.current,
-      { opacity: 0, y: 50 },
+      aLevelCardRef.current,
+      { opacity: 0, x: 100 },
+      { 
+        opacity: 1, 
+        x: 0, 
+        duration: 0.8, 
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: aLevelCardRef.current,
+          start: "top 80%",
+          scrub: 1
+        }
+      }
+    );
+
+    // Additional Requirements section
+    gsap.fromTo(
+      additionalReqRef.current.querySelector('.grid > div:first-child'),
+      { opacity: 0, x: -100 },
       {
         opacity: 1,
-        y: 0,
+        x: 0,
         duration: 0.8,
         scrollTrigger: {
           trigger: additionalReqRef.current,
           start: "top 80%",
-          end: "bottom 20%",
-          toggleActions: "play none none none"
+          scrub: 1
         }
       }
     );
 
     gsap.fromTo(
-      paymentInfoRef.current,
-      { opacity: 0, y: 50 },
+      additionalReqRef.current.querySelector('.grid > div:last-child'),
+      { opacity: 0, x: 100 },
       {
         opacity: 1,
-        y: 0,
+        x: 0,
         duration: 0.8,
         scrollTrigger: {
-          trigger: paymentInfoRef.current,
+          trigger: additionalReqRef.current,
           start: "top 80%",
-          end: "bottom 20%",
-          toggleActions: "play none none none"
+          scrub: 1
         }
       }
     );
 
+    // Payment Information section
+    gsap.fromTo(
+      paymentInfoRef.current.querySelector('.grid > div:first-child'),
+      { opacity: 0, x: -100 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: paymentInfoRef.current,
+          start: "top 80%",
+          scrub: 1
+        }
+      }
+    );
+
+    gsap.fromTo(
+      paymentInfoRef.current.querySelector('.grid > div:last-child'),
+      { opacity: 0, x: 100 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: paymentInfoRef.current,
+          start: "top 80%",
+          scrub: 1
+        }
+      }
+    );
+
+    // Contact section animation (keeping the original scale animation)
     gsap.fromTo(
       contactSectionRef.current,
       { opacity: 0, scale: 0.9 },
@@ -335,8 +411,7 @@ const SchoolFeesStructure = () => {
         scrollTrigger: {
           trigger: contactSectionRef.current,
           start: "top 80%",
-          end: "bottom 20%",
-          toggleActions: "play none none none"
+          scrub: 1
         }
       }
     );

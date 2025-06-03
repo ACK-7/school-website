@@ -208,7 +208,6 @@ export default function CurriculumPage() {
               We provide three key educational levels:
             </p>
             <ul className="list-disc pl-5 text-gray-700 space-y-2">
-              <li>Pre-Senior One (Remedial/Bridge Class) – optional preparatory year</li>
               <li>O-Level (UCE) – Senior 1 to 4</li>
               <li>A-Level (UACE) – Senior 5 to 6</li>
             </ul>
@@ -223,58 +222,45 @@ export default function CurriculumPage() {
       <section ref={cardsRef} className="py-16 px-4 bg-gray-100">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">Curriculum Structure</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Pre-Senior One Card */}
-            <div className="curriculum-card bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-              <div className="h-48 bg-blue-100 flex items-center justify-center">
-                <img 
-                  src="/api/placeholder/400/300" 
-                  alt="Pre-Senior One" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-3 text-gray-800">Pre-Senior One</h3>
-                <p className="text-gray-600">
-                  A foundational year designed to bridge primary and secondary education. 
-                  This optional class strengthens core skills and prepares students for O-Level success.
-                </p>
-              </div>
-            </div>
+          <div className="grid grid-cols-2 gap-8">
 
             {/* O-Level Card */}
             <div className="curriculum-card bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-              <div className="h-48 bg-green-100 flex items-center justify-center">
-                <img 
-                  src="/api/placeholder/400/300" 
-                  alt="O-Level Studies" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-3 text-gray-800">O-Level (UCE)</h3>
-                <p className="text-gray-600">
-                  Our comprehensive four-year program (Senior 1-4) covers core and elective subjects,
-                  culminating in the Uganda Certificate of Education examinations.
-                </p>
+              <div className="flex flex-col md:flex-row h-full">
+                <div className="md:w-1/2">
+                  <img 
+                    src="/api/placeholder/400/300" 
+                    alt="O-Level Studies" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-6 md:w-1/2">
+                  <h3 className="text-xl font-bold mb-3 text-gray-800">O-Level (UCE)</h3>
+                  <p className="text-gray-600">
+                    Our comprehensive four-year program (Senior 1-4) covers core and elective subjects,
+                    culminating in the Uganda Certificate of Education examinations.
+                  </p>
+                </div>
               </div>
             </div>
 
             {/* A-Level Card */}
             <div className="curriculum-card bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-              <div className="h-48 bg-purple-100 flex items-center justify-center">
-                <img 
-                  src="/api/placeholder/400/300" 
-                  alt="A-Level Studies" 
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-3 text-gray-800">A-Level (UACE)</h3>
-                <p className="text-gray-600">
-                  Our two-year advanced program (Senior 5-6) offers specialized subject combinations 
-                  preparing students for university and professional careers.
-                </p>
+              <div className="flex flex-col md:flex-row h-full">
+                <div className="md:w-1/2">
+                  <img 
+                    src="/api/placeholder/400/300" 
+                    alt="A-Level Studies" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-6 md:w-1/2">
+                  <h3 className="text-xl font-bold mb-3 text-gray-800">A-Level (UACE)</h3>
+                  <p className="text-gray-600">
+                    Our two-year advanced program (Senior 5-6) offers specialized subject combinations 
+                    preparing students for university and professional careers.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

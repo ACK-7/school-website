@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { TextPlugin } from "gsap/TextPlugin";
+import principal from "../../assets/principal.jpeg";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, TextPlugin);
 
@@ -503,7 +504,7 @@ const Statements = () => {
             <div className="flex flex-col lg:flex-row items-center gap-8">
               <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-indigo-200 shadow-lg">
                 <img 
-                  src="/images/principal.jpg" 
+                  src={principal} 
                   alt="School Principal" 
                   className="w-full h-full object-cover"
                 />

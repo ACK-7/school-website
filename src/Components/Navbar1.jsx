@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { gsap } from 'gsap';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -9,6 +10,10 @@ const Navbar = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 992);
   const { isAuthenticated, logout } = useAuth ? useAuth() : { isAuthenticated: false, logout: () => {} };
   const navigate = useNavigate ? useNavigate() : () => {};
+  
+  // Refs for animations
+  const logoRef = useRef(null);
+  const shsTextRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,6 +39,60 @@ const Navbar = () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
     };
+  }, []);
+
+  // GSAP Animations
+  useEffect(() => {
+    // Logo pulse and scale animation
+    if (logoRef.current) {
+      gsap.to(logoRef.current, {
+        scale: 1.3,
+        duration: 1.5,
+        ease: "power2.inOut",
+        repeat: -1,
+        yoyo: true,
+        transformOrigin: "center center"
+      });
+
+      // Add a subtle pulse effect
+      gsap.to(logoRef.current, {
+        opacity: 0.8,
+        duration: 2,
+        ease: "power1.inOut",
+        repeat: -1,
+        yoyo: true
+      });
+    }
+
+    // SHS text floating and glowing animation
+    if (shsTextRef.current) {
+      // Floating animation
+      gsap.to(shsTextRef.current, {
+        y: -8,
+        duration: 2.5,
+        ease: "power1.inOut",
+        repeat: -1,
+        yoyo: true
+      });
+
+      // Glowing effect using text-shadow
+      gsap.to(shsTextRef.current, {
+        textShadow: "0 0 20px rgba(218, 165, 32, 0.8), 0 0 30px rgba(218, 165, 32, 0.6), 0 0 40px rgba(218, 165, 32, 0.4)",
+        duration: 2,
+        ease: "power2.inOut",
+        repeat: -1,
+        yoyo: true
+      });
+
+      // Additional color pulse for the glow
+      gsap.to(shsTextRef.current, {
+        color: "#DAA520",
+        duration: 3,
+        ease: "power1.inOut",
+        repeat: -1,
+        yoyo: true
+      });
+    }
   }, []);
 
   const toggleNavbar = () => {
@@ -68,8 +127,22 @@ const Navbar = () => {
       <div className="flex justify-between items-center w-full max-w-7xl mx-auto">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 z-50 no-underline" onClick={handleLinkClick}>
-          <img src="./src/assets/schoolbadge.png" alt="Badge" className="w-[50px] sm:w-[60px] h-auto" />
-          <span className="text-[20px] sm:text-[25px] text-white font-sans">SHS</span>
+          <img 
+            ref={logoRef}
+            src="./src/assets/schoolbadge.png" 
+            alt="Badge" 
+            className="w-[50px] sm:w-[60px] h-auto" 
+          />
+          <span 
+            ref={shsTextRef}
+            className="text-[20px] sm:text-[25px] text-white font-sans font-bold"
+            style={{ 
+              textShadow: "0 0 10px rgba(218, 165, 32, 0.3)",
+              transition: "all 0.3s ease"
+            }}
+          >
+            SHS
+          </span>
         </Link>
         
         {/* Mobile Menu Button - Fixed visibility issues */}
