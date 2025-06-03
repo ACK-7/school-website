@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook, faUsers, faTable } from '@fortawesome/free-solid-svg-icons';
 
@@ -28,19 +28,29 @@ const services = [
 
 const Service = () => {
   return (
-    <div className="flex max-w-full -mt-[100px] mx-[50px] sm:mx-[20px] sm:-mt-[80px] xs:flex-col xs:mx-[15px] xs:-mt-[50px]">
+    <div className="flex w-[95%] max-w-full -mt-[100px] mx-auto sm:-mt-[80px] xs:-mt-[50px]">
       {services.map((service, index) => (
         <article
           key={index}
           className={`flex-1 ${service.bgColor} p-5 z-[1] text-white text-center ${
             index !== services.length - 1
-              ? 'border-r-2 border-white xs:border-r-0 xs:border-b-2'
+              ? 'border-r-2 border-white'
               : ''
-          } sm:p-[15px_10px]`}
+          } sm:p-[15px_10px] xs:p-[10px_6px] min-w-0`}
         >
-          <FontAwesomeIcon icon={service.icon} className="text-[40px] sm:text-[32px] mb-[15px] sm:mb-[10px]" />
-          <h3 className="text-[25px] font-bold mb-[10px] sm:text-[20px] sm:mb-0">{service.title}</h3>
-          <p className="text-[18px] leading-[1.5] xs:hidden">{service.description}</p>
+          <FontAwesomeIcon 
+            icon={service.icon} 
+            className="text-[40px] sm:text-[32px] xs:text-[24px] mb-[15px] sm:mb-[10px] xs:mb-[8px]" 
+          />
+          <h3 className="text-[23px] font-bold mb-[10px] sm:text-[20px] sm:mb-0 xs:text-[14px] xs:mb-[5px] leading-tight px-1">
+            {service.title}
+          </h3>
+          <p className="hidden sm:block xs:hidden text-[18px] leading-[1.5]">
+            {service.description}
+          </p>
+          <p className="hidden xs:block text-[11px] leading-[1.3] px-1">
+            {service.description}
+          </p>
         </article>
       ))}
     </div>

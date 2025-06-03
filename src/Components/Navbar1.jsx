@@ -55,34 +55,62 @@ const Navbar = () => {
     navigate('/');
   };
 
+  // Close mobile menu when clicking on links
+  const handleLinkClick = () => {
+    if (isMobile) {
+      setIsOpen(false);
+      setActiveDropdown(null);
+    }
+  };
+
   return (
-    <nav className={`fixed z-50 w-full top-0 left-0 py-4 px-8 transition-all duration-300 ease-in-out ${scrolled ? 'backdrop-blur-md bg-black/70' : 'bg-transparent'} lg:py-4 lg:px-8 md:py-2 md:px-4`}>
-      <div className="flex justify-between items-center w-full">
-        <Link to="/" className="flex items-center gap-2 z-50 no-underline">
-          <img src="./src/assets/schoolbadge.png" alt="Badge" className="w-[60px] h-auto" />
-          <span className="text-[25px] text-white font-sans">SHS</span>
+    <nav className={`fixed z-50 w-full top-0 left-0 py-3 px-4 sm:px-6 lg:px-8 transition-all duration-300 ease-in-out ${scrolled ? 'backdrop-blur-md bg-black/80' : 'bg-transparent'}`}>
+      <div className="flex justify-between items-center w-full max-w-7xl mx-auto">
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-2 z-50 no-underline" onClick={handleLinkClick}>
+          <img src="./src/assets/schoolbadge.png" alt="Badge" className="w-[50px] sm:w-[60px] h-auto" />
+          <span className="text-[20px] sm:text-[25px] text-white font-sans">SHS</span>
         </Link>
         
+        {/* Mobile Menu Button - Fixed visibility issues */}
         <button 
-          className="hidden lg:hidden md:block p-1 bg-transparent border border-white/10 rounded text-white cursor-pointer z-50"
+          className={`${isMobile ? 'flex' : 'hidden'} flex-col justify-center items-center w-8 h-8 p-1 bg-transparent border border-white/20 rounded text-white cursor-pointer z-50 transition-all duration-300 hover:border-white/40 hover:bg-white/10`}
           type="button" 
           onClick={toggleNavbar}
           aria-expanded={isOpen ? "true" : "false"}
           aria-label="Toggle navigation"
         >
-          <span className="inline-block w-6 h-6 bg-no-repeat bg-center bg-contain" style={{ backgroundImage: "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e\")" }}></span>
+          {/* Hamburger icon with animation */}
+          <div className={`w-5 h-0.5 bg-white transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-1.5' : ''}`}></div>
+          <div className={`w-5 h-0.5 bg-white mt-1 transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`}></div>
+          <div className={`w-5 h-0.5 bg-white mt-1 transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></div>
         </button>
         
-        <div className={`flex-1 flex items-center ${isMobile ? 'fixed top-0 left-0 right-0 bottom-0 bg-black/95 flex-col items-start w-full h-screen pt-20 pb-5 px-5 overflow-y-auto z-40' : ''} ${isOpen || !isMobile ? 'block' : 'hidden'}`}>
-          <ul className={`ml-auto mr-4 flex list-none pl-0 ${isMobile ? 'flex-col w-full m-0 p-0' : 'flex-row items-center'}`}>
-            <li className={`relative ${isMobile ? 'w-full border-b border-white/10' : ''}`}>
-              <Link className={`text-white font-medium py-2 px-4 transition-all duration-300 ease-in-out no-underline flex justify-between items-center hover:bg-white/10 ${isMobile ? 'py-4 px-0 text-lg' : ''}`} to="/">Home</Link>
+        {/* Navigation Menu */}
+        <div className={`${isMobile ? 
+          `fixed top-0 left-0 w-2/3 h-screen bg-black/95 backdrop-blur-md flex flex-col pt-20 pb-5 px-5 overflow-y-auto z-40 transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'}` : 
+          'flex-1 flex items-center'
+        }`}>
+          
+          {/* Main Navigation */}
+          <ul className={`${isMobile ? 'flex flex-col w-full m-0 p-0 space-y-2' : 'ml-auto mr-4 flex flex-row items-center list-none pl-0'}`}>
+            
+            {/* Home */}
+            <li className={`relative ${isMobile ? 'w-full' : ''}`}>
+              <Link 
+                className={`text-white font-medium transition-all duration-300 ease-in-out no-underline flex justify-between items-center hover:bg-white/10 rounded ${isMobile ? 'py-3 px-4 text-lg border-b border-white/10' : 'py-2 px-4'}`} 
+                to="/"
+                onClick={handleLinkClick}
+              >
+                Home
+              </Link>
             </li>
             
-            <li className={`relative ${isMobile ? 'w-full border-b border-white/10' : ''} group`}>
+            {/* About Us */}
+            <li className={`relative ${isMobile ? 'w-full' : ''} group`}>
               <div className={`w-full ${isMobile ? '' : 'relative'}`}>
                 <a 
-                  className={`text-white font-medium py-2 px-4 transition-all duration-300 ease-in-out no-underline flex justify-between items-center hover:bg-white/10 ${isMobile ? 'py-4 px-0 text-lg' : ''}`}
+                  className={`text-white font-medium transition-all duration-300 ease-in-out no-underline flex justify-between items-center hover:bg-white/10 rounded ${isMobile ? 'py-3 px-4 text-lg border-b border-white/10' : 'py-2 px-4'}`}
                   href="#" 
                   role="button"
                   onClick={(e) => {
@@ -91,21 +119,26 @@ const Navbar = () => {
                   }}
                 >
                   About Us
-                  <span className={`${isMobile ? 'inline-block' : 'hidden'} ml-2 text-xs`}>
-                    {activeDropdown === 1 ? '▲' : '▼'}
+                  <span className={`${isMobile ? 'inline-block' : 'hidden'} ml-2 text-sm transition-transform duration-200 ${activeDropdown === 1 ? 'rotate-180' : ''}`}>
+                    ▼
                   </span>
                 </a>
               </div>
-              <div className={`fixed lg:left-1/2 lg:-translate-x-1/2 w-[1000px] max-w-[90vw] mt-0 bg-white border-none rounded-none py-8 px-0 shadow-md 
-                              ${isMobile ? 'relative w-full left-0 transform-none shadow-none bg-transparent py-0 px-0' : 'opacity-0 invisible pointer-events-none transition-opacity duration-300'} 
-                              ${activeDropdown === 1 ? '!block' : ''} 
-                              ${!isMobile ? 'group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto' : ''} z-50`}>
-                <div className={`max-w-6xl mx-auto ${isMobile ? 'grid grid-cols-1 gap-4 p-0' : 'grid grid-cols-[250px_1fr] gap-8 px-8'}`}>
-                  <ul className={`list-none p-0 m-0 ${isMobile ? 'bg-white/10 p-2.5 rounded' : ''}`}>
+              
+              {/* About Us Dropdown */}
+              <div className={`
+                ${isMobile ? 
+                  `w-full bg-transparent transition-all duration-300 ease-in-out overflow-hidden ${activeDropdown === 1 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}` : 
+                  'fixed left-1/2 -translate-x-1/2 w-[1000px] max-w-[90vw] mt-0 bg-white border-none rounded-none py-8 px-0 shadow-lg opacity-0 invisible pointer-events-none transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto z-50'
+                }
+              `}>
+                <div className={`${isMobile ? 'p-0' : 'max-w-6xl mx-auto grid grid-cols-[250px_1fr] gap-8 px-8'}`}>
+                  <ul className={`list-none p-0 m-0 ${isMobile ? 'bg-white/10 ml-4 rounded' : ''}`}>
                     <li>
                       <Link 
                         to="/about" 
-                        className={`block py-3 ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'} transition-all duration-300 ease-in-out no-underline`}
+                        className={`block py-3 transition-all duration-300 ease-in-out no-underline ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'}`}
+                        onClick={handleLinkClick}
                       >
                         About SHS
                       </Link>
@@ -113,7 +146,8 @@ const Navbar = () => {
                     <li>
                       <Link 
                         to="/administration" 
-                        className={`block py-3 ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'} transition-all duration-300 ease-in-out no-underline`}
+                        className={`block py-3 transition-all duration-300 ease-in-out no-underline ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'}`}
+                        onClick={handleLinkClick}
                       >
                         Administration
                       </Link>
@@ -121,7 +155,8 @@ const Navbar = () => {
                     <li>
                       <Link 
                         to="/mission-vision" 
-                        className={`block py-3 ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'} transition-all duration-300 ease-in-out no-underline`}
+                        className={`block py-3 transition-all duration-300 ease-in-out no-underline ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'}`}
+                        onClick={handleLinkClick}
                       >
                         Mission & Vision
                       </Link>
@@ -146,10 +181,11 @@ const Navbar = () => {
               </div>
             </li>
             
-            <li className={`relative ${isMobile ? 'w-full border-b border-white/10' : ''} group`}>
+            {/* Admissions */}
+            <li className={`relative ${isMobile ? 'w-full' : ''} group`}>
               <div className={`w-full ${isMobile ? '' : 'relative'}`}>
                 <a 
-                  className={`text-white font-medium py-2 px-4 transition-all duration-300 ease-in-out no-underline flex justify-between items-center hover:bg-white/10 ${isMobile ? 'py-4 px-0 text-lg' : ''}`}
+                  className={`text-white font-medium transition-all duration-300 ease-in-out no-underline flex justify-between items-center hover:bg-white/10 rounded ${isMobile ? 'py-3 px-4 text-lg border-b border-white/10' : 'py-2 px-4'}`}
                   href="#" 
                   role="button"
                   onClick={(e) => {
@@ -158,21 +194,26 @@ const Navbar = () => {
                   }}
                 >
                   Admissions
-                  <span className={`${isMobile ? 'inline-block' : 'hidden'} ml-2 text-xs`}>
-                    {activeDropdown === 2 ? '▲' : '▼'}
+                  <span className={`${isMobile ? 'inline-block' : 'hidden'} ml-2 text-sm transition-transform duration-200 ${activeDropdown === 2 ? 'rotate-180' : ''}`}>
+                    ▼
                   </span>
                 </a>
               </div>
-              <div className={`fixed lg:left-1/2 lg:-translate-x-1/2 w-[1000px] max-w-[90vw] mt-0 bg-white border-none rounded-none py-8 px-0 shadow-md 
-                              ${isMobile ? 'relative w-full left-0 transform-none shadow-none bg-transparent py-0 px-0' : 'opacity-0 invisible pointer-events-none transition-opacity duration-300'} 
-                              ${activeDropdown === 2 ? '!block' : ''} 
-                              ${!isMobile ? 'group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto' : ''} z-50`}>
-                <div className={`max-w-6xl mx-auto ${isMobile ? 'grid grid-cols-1 gap-4 p-0' : 'grid grid-cols-[250px_1fr] gap-8 px-8'}`}>
-                  <ul className={`list-none p-0 m-0 ${isMobile ? 'bg-white/10 p-2.5 rounded' : ''}`}>
+              
+              {/* Admissions Dropdown */}
+              <div className={`
+                ${isMobile ? 
+                  `w-full bg-transparent transition-all duration-300 ease-in-out overflow-hidden ${activeDropdown === 2 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}` : 
+                  'fixed left-1/2 -translate-x-1/2 w-[1000px] max-w-[90vw] mt-0 bg-white border-none rounded-none py-8 px-0 shadow-lg opacity-0 invisible pointer-events-none transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto z-50'
+                }
+              `}>
+                <div className={`${isMobile ? 'p-0' : 'max-w-6xl mx-auto grid grid-cols-[250px_1fr] gap-8 px-8'}`}>
+                  <ul className={`list-none p-0 m-0 ${isMobile ? 'bg-white/10 ml-4 rounded' : ''}`}>
                     <li>
                       <Link 
                         to="/apply" 
-                        className={`block py-3 ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'} transition-all duration-300 ease-in-out no-underline`}
+                        className={`block py-3 transition-all duration-300 ease-in-out no-underline ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'}`}
+                        onClick={handleLinkClick}
                       >
                         Apply Now
                       </Link>
@@ -180,7 +221,8 @@ const Navbar = () => {
                     <li>
                       <Link 
                         to="/admission-overview" 
-                        className={`block py-3 ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'} transition-all duration-300 ease-in-out no-underline`}
+                        className={`block py-3 transition-all duration-300 ease-in-out no-underline ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'}`}
+                        onClick={handleLinkClick}
                       >
                         Admission Overview
                       </Link>
@@ -188,7 +230,8 @@ const Navbar = () => {
                     <li>
                       <Link 
                         to="/fees-structure" 
-                        className={`block py-3 ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'} transition-all duration-300 ease-in-out no-underline`}
+                        className={`block py-3 transition-all duration-300 ease-in-out no-underline ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'}`}
+                        onClick={handleLinkClick}
                       >
                         School Fees
                       </Link>
@@ -208,7 +251,7 @@ const Navbar = () => {
                     <div>
                       <img
                         src="src/assets/admission.png" 
-                        alt="About Us Image"
+                        alt="Admissions Image"
                         className="w-auto"
                       />
                     </div>
@@ -217,10 +260,11 @@ const Navbar = () => {
               </div>
             </li>
             
-            <li className={`relative ${isMobile ? 'w-full border-b border-white/10' : ''} group`}>
+            {/* Academics */}
+            <li className={`relative ${isMobile ? 'w-full' : ''} group`}>
               <div className={`w-full ${isMobile ? '' : 'relative'}`}>
                 <a 
-                  className={`text-white font-medium py-2 px-4 transition-all duration-300 ease-in-out no-underline flex justify-between items-center hover:bg-white/10 ${isMobile ? 'py-4 px-0 text-lg' : ''}`}
+                  className={`text-white font-medium transition-all duration-300 ease-in-out no-underline flex justify-between items-center hover:bg-white/10 rounded ${isMobile ? 'py-3 px-4 text-lg border-b border-white/10' : 'py-2 px-4'}`}
                   href="#" 
                   role="button"
                   onClick={(e) => {
@@ -229,21 +273,26 @@ const Navbar = () => {
                   }}
                 >
                   Academics
-                  <span className={`${isMobile ? 'inline-block' : 'hidden'} ml-2 text-xs`}>
-                    {activeDropdown === 3 ? '▲' : '▼'}
+                  <span className={`${isMobile ? 'inline-block' : 'hidden'} ml-2 text-sm transition-transform duration-200 ${activeDropdown === 3 ? 'rotate-180' : ''}`}>
+                    ▼
                   </span>
                 </a>
               </div>
-              <div className={`fixed lg:left-1/2 lg:-translate-x-1/2 w-[1000px] max-w-[90vw] mt-0 bg-white border-none rounded-none py-8 px-0 shadow-md 
-                              ${isMobile ? 'relative w-full left-0 transform-none shadow-none bg-transparent py-0 px-0' : 'opacity-0 invisible pointer-events-none transition-opacity duration-300'} 
-                              ${activeDropdown === 3 ? '!block' : ''} 
-                              ${!isMobile ? 'group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto' : ''} z-50`}>
-                <div className={`max-w-6xl mx-auto ${isMobile ? 'grid grid-cols-1 gap-4 p-0' : 'grid grid-cols-[250px_1fr] gap-8 px-8'}`}>
-                  <ul className={`list-none p-0 m-0 ${isMobile ? 'bg-white/10 p-2.5 rounded' : ''}`}>
+              
+              {/* Academics Dropdown */}
+              <div className={`
+                ${isMobile ? 
+                  `w-full bg-transparent transition-all duration-300 ease-in-out overflow-hidden ${activeDropdown === 3 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}` : 
+                  'fixed left-1/2 -translate-x-1/2 w-[1000px] max-w-[90vw] mt-0 bg-white border-none rounded-none py-8 px-0 shadow-lg opacity-0 invisible pointer-events-none transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto z-50'
+                }
+              `}>
+                <div className={`${isMobile ? 'p-0' : 'max-w-6xl mx-auto grid grid-cols-[250px_1fr] gap-8 px-8'}`}>
+                  <ul className={`list-none p-0 m-0 ${isMobile ? 'bg-white/10 ml-4 rounded' : ''}`}>
                     <li>
                       <Link 
                         to="/curriculum" 
-                        className={`block py-3 ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'} transition-all duration-300 ease-in-out no-underline`}
+                        className={`block py-3 transition-all duration-300 ease-in-out no-underline ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'}`}
+                        onClick={handleLinkClick}
                       >
                         Curriculum
                       </Link>
@@ -251,7 +300,8 @@ const Navbar = () => {
                     <li>
                       <Link 
                         to="/academic-calendar" 
-                        className={`block py-3 ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'} transition-all duration-300 ease-in-out no-underline`}
+                        className={`block py-3 transition-all duration-300 ease-in-out no-underline ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'}`}
+                        onClick={handleLinkClick}
                       >
                         Academic Calendar
                       </Link>
@@ -270,7 +320,7 @@ const Navbar = () => {
                     <div>
                       <img
                         src="src/assets/academics.png" 
-                        alt="About Us Image"
+                        alt="Academics Image"
                         className="w-auto"
                       />
                     </div>
@@ -279,10 +329,11 @@ const Navbar = () => {
               </div>
             </li>
             
-            <li className={`relative ${isMobile ? 'w-full border-b border-white/10' : ''} group`}>
+            {/* Student Life */}
+            <li className={`relative ${isMobile ? 'w-full' : ''} group`}>
               <div className={`w-full ${isMobile ? '' : 'relative'}`}>
                 <a 
-                  className={`text-white font-medium py-2 px-4 transition-all duration-300 ease-in-out no-underline flex justify-between items-center hover:bg-white/10 ${isMobile ? 'py-4 px-0 text-lg' : ''}`}
+                  className={`text-white font-medium transition-all duration-300 ease-in-out no-underline flex justify-between items-center hover:bg-white/10 rounded ${isMobile ? 'py-3 px-4 text-lg border-b border-white/10' : 'py-2 px-4'}`}
                   href="#" 
                   role="button"
                   onClick={(e) => {
@@ -291,21 +342,26 @@ const Navbar = () => {
                   }}
                 >
                   Student Life
-                  <span className={`${isMobile ? 'inline-block' : 'hidden'} ml-2 text-xs`}>
-                    {activeDropdown === 4 ? '▲' : '▼'}
+                  <span className={`${isMobile ? 'inline-block' : 'hidden'} ml-2 text-sm transition-transform duration-200 ${activeDropdown === 4 ? 'rotate-180' : ''}`}>
+                    ▼
                   </span>
                 </a>
               </div>
-              <div className={`fixed lg:left-1/2 lg:-translate-x-1/2 w-[1000px] max-w-[90vw] mt-0 bg-white border-none rounded-none py-8 px-0 shadow-md 
-                              ${isMobile ? 'relative w-full left-0 transform-none shadow-none bg-transparent py-0 px-0' : 'opacity-0 invisible pointer-events-none transition-opacity duration-300'} 
-                              ${activeDropdown === 4 ? '!block' : ''} 
-                              ${!isMobile ? 'group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto' : ''} z-50`}>
-                <div className={`max-w-6xl mx-auto ${isMobile ? 'grid grid-cols-1 gap-4 p-0' : 'grid grid-cols-[250px_1fr] gap-8 px-8'}`}>
-                  <ul className={`list-none p-0 m-0 ${isMobile ? 'bg-white/10 p-2.5 rounded' : ''}`}>
+              
+              {/* Student Life Dropdown */}
+              <div className={`
+                ${isMobile ? 
+                  `w-full bg-transparent transition-all duration-300 ease-in-out overflow-hidden ${activeDropdown === 4 ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}` : 
+                  'fixed left-1/2 -translate-x-1/2 w-[1000px] max-w-[90vw] mt-0 bg-white border-none rounded-none py-8 px-0 shadow-lg opacity-0 invisible pointer-events-none transition-all duration-300 group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto z-50'
+                }
+              `}>
+                <div className={`${isMobile ? 'p-0' : 'max-w-6xl mx-auto grid grid-cols-[250px_1fr] gap-8 px-8'}`}>
+                  <ul className={`list-none p-0 m-0 ${isMobile ? 'bg-white/10 ml-4 rounded' : ''}`}>
                     <li>
                       <Link 
                         to="/sports-athletics" 
-                        className={`block py-3 ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'} transition-all duration-300 ease-in-out no-underline`}
+                        className={`block py-3 transition-all duration-300 ease-in-out no-underline ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'}`}
+                        onClick={handleLinkClick}
                       >
                         Sports & Athletics
                       </Link>
@@ -313,7 +369,8 @@ const Navbar = () => {
                     <li>
                       <Link 
                         to="/student-clubs" 
-                        className={`block py-3 ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'} transition-all duration-300 ease-in-out no-underline`}
+                        className={`block py-3 transition-all duration-300 ease-in-out no-underline ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'}`}
+                        onClick={handleLinkClick}
                       >
                         Clubs & Activities
                       </Link>
@@ -321,7 +378,8 @@ const Navbar = () => {
                     <li>
                       <Link 
                         to="/gallery" 
-                        className={`block py-3 ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'} transition-all duration-300 ease-in-out no-underline`}
+                        className={`block py-3 transition-all duration-300 ease-in-out no-underline ${isMobile ? 'text-white border-l-3 border-transparent px-4 hover:border-l-[#DAA520] hover:bg-white/5' : 'text-gray-600 border-l-[3px] border-transparent pl-4 hover:text-gray-800 hover:border-l-[#DAA520] hover:bg-gray-100'}`}
+                        onClick={handleLinkClick}
                       >
                         Gallery
                       </Link>
@@ -337,7 +395,7 @@ const Navbar = () => {
                     <div>
                       <img
                         src="src/assets/studentlife.png" 
-                        alt="About Us Image"
+                        alt="Student Life Image"
                         className="w-auto"
                       />
                     </div>
@@ -346,25 +404,35 @@ const Navbar = () => {
               </div>
             </li>
             
-            <li className={`relative ${isMobile ? 'w-full border-b border-white/10' : ''}`}>
+            {/* Contact Us */}
+            <li className={`relative ${isMobile ? 'w-full' : ''}`}>
               <Link 
-              className={`text-white font-medium py-2 px-4 transition-all duration-300 ease-in-out no-underline flex justify-between items-center hover:bg-white/10 ${isMobile ? 'py-4 px-0 text-lg' : ''}`} to="/contact-us">Contact Us</Link>
+                className={`text-white font-medium transition-all duration-300 ease-in-out no-underline flex justify-between items-center hover:bg-white/10 rounded ${isMobile ? 'py-3 px-4 text-lg border-b border-white/10' : 'py-2 px-4'}`} 
+                to="/contact-us"
+                onClick={handleLinkClick}
+              >
+                Contact Us
+              </Link>
             </li>
           </ul>
-          <div className="flex items-center gap-4">
+          
+          {/* Action Buttons */}
+          <div className={`flex ${isMobile ? 'flex-col w-full mt-6 gap-3' : 'items-center gap-4'}`}>
             {!isAuthenticated ? (
               <>
                 <Link
                   to="/apply"
-                  className="px-6 py-2 bg-[#d59f0f] text-white rounded border-none font-semibold transition-all duration-200 hover:bg-[#ecc74a] focus:outline-none"
+                  className={`px-6 py-2 bg-[#d59f0f] text-white rounded border-none font-semibold transition-all duration-200 hover:bg-[#ecc74a] focus:outline-none text-center ${isMobile ? 'w-full' : ''}`}
                   style={{ boxShadow: 'none' }}
+                  onClick={handleLinkClick}
                 >
                   Apply Now
                 </Link>
                 <Link
                   to="/login"
-                  className="px-6 py-2 border-2 border-[#d59f0f] text-[white] bg-transparent rounded font-semibold transition-all duration-200 hover:bg-[#F9F9F950] focus:outline-none"
+                  className={`px-6 py-2 border-2 border-[#d59f0f] text-white bg-transparent rounded font-semibold transition-all duration-200 hover:bg-[#F9F9F950] focus:outline-none text-center ${isMobile ? 'w-full' : ''}`}
                   style={{ boxShadow: 'none' }}
+                  onClick={handleLinkClick}
                 >
                   Staff Login
                 </Link>
@@ -373,13 +441,14 @@ const Navbar = () => {
               <>
                 <Link
                   to="/dashboard"
-                  className="ml-4 px-5 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition"
+                  className={`px-5 py-2 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition text-center ${isMobile ? 'w-full' : 'ml-4'}`}
+                  onClick={handleLinkClick}
                 >
                   Dashboard
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="ml-2 px-5 py-2 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition"
+                  className={`px-5 py-2 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition ${isMobile ? 'w-full' : 'ml-2'}`}
                 >
                   Logout
                 </button>
