@@ -28,11 +28,11 @@ const services = [
 
 const Service = () => {
   return (
-    <div className="flex w-[95%] max-w-full -mt-[100px] mx-auto sm:-mt-[80px] xs:-mt-[50px]">
+    <div className="flex w-full max-w-[95%] mx-auto -mt-[100px] sm:-mt-[80px] xs:-mt-[50px]">
       {services.map((service, index) => (
         <article
           key={index}
-          className={`flex-1 ${service.bgColor} p-5 z-[1] text-white text-center ${
+          className={`flex-1 ${service.bgColor} p-4 sm:p-5 z-[1] text-white text-center ${
             index !== services.length - 1
               ? 'border-r-2 border-white'
               : ''
@@ -40,12 +40,12 @@ const Service = () => {
         >
           <FontAwesomeIcon 
             icon={service.icon} 
-            className="text-[40px] sm:text-[32px] xs:text-[24px] mb-[15px] sm:mb-[10px] xs:mb-[8px]" 
+            className="text-[32px] sm:text-[40px] xs:text-[24px] mb-[10px] sm:mb-[15px] xs:mb-[8px]" 
           />
-          <h3 className="text-[23px] font-bold mb-[10px] sm:text-[20px] sm:mb-0 xs:text-[14px] xs:mb-[5px] leading-tight px-1">
+          <h3 className="text-[18px] sm:text-[23px] font-bold mb-[8px] sm:mb-[10px] xs:text-[14px] xs:mb-[5px] leading-tight px-1">
             {service.title}
           </h3>
-          <p className="hidden sm:block xs:hidden text-[18px] leading-[1.5]">
+          <p className="hidden sm:block xs:hidden text-[16px] sm:text-[18px] leading-[1.5]">
             {service.description}
           </p>
           <p className="hidden xs:block text-[11px] leading-[1.3] px-1">

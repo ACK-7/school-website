@@ -124,22 +124,22 @@ const CallToActionSection = () => {
 
   return (
     <section className="py-20 bg-slate-900 min-h-screen">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col lg:flex-row gap-12 items-start">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
           {/* Left Column: Map */}
-          <div className="flex-1 flex flex-col">
-            <div className="mb-8 text-center">
-              <h2 className="text-4xl font-bold text-white mb-4">Find Us</h2>
+          <div className="w-full lg:w-1/2 flex flex-col">
+            <div className="mb-6 sm:mb-8 text-center">
+              <h2 className="text-2xl sm:text-4xl font-bold text-white mb-3 sm:mb-4">Find Us</h2>
               <div className="flex items-center justify-center gap-2">
-                <span className="w-8 h-0.5 bg-blue-500"></span>
-                <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                <span className="w-8 h-0.5 bg-blue-500"></span>
+                <span className="w-6 sm:w-8 h-0.5 bg-blue-500"></span>
+                <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-blue-500"></span>
+                <span className="w-6 sm:w-8 h-0.5 bg-blue-500"></span>
               </div>
             </div>
-            <div className="relative w-full pb-[80%] overflow-hidden rounded-2xl shadow-2xl">
+            <div className="relative w-full pb-[100%] sm:pb-[80%] overflow-hidden rounded-xl sm:rounded-2xl shadow-xl sm:shadow-2xl">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7526979999997!2d32.5678!3d0.5678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMMKwMzQnMDQuMSJOIDMywrAzNCcwNC4xIkU!5e0!3m2!1sen!2sug!4v1234567890"
-                className="absolute top-0 left-0 w-full h-full border-0 rounded-2xl"
+                className="absolute top-0 left-0 w-full h-full border-0 rounded-xl sm:rounded-2xl"
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -149,7 +149,7 @@ const CallToActionSection = () => {
           </div>
 
           {/* Right Column: Contact Form */}
-          <div className="flex-1 flex flex-col max-w-lg">
+          <div className="w-full lg:w-1/2 flex flex-col mt-8 lg:mt-0">
             <div className="mb-8 text-center">
               <h2 className="text-4xl font-bold text-white mb-4">Contact Us</h2>
               <div className="flex items-center justify-center gap-2">
@@ -159,7 +159,7 @@ const CallToActionSection = () => {
               </div>
             </div>
 
-            <div className="relative min-h-[500px] bg-slate-800/40 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/10">
+            <div className="relative min-h-[500px] bg-slate-800/40 backdrop-blur-lg rounded-3xl p-4 sm:p-8 shadow-2xl border border-white/10">
               {showForm && (
                 <form onSubmit={handleSubmit} className="w-full transition-opacity duration-500 space-y-6">
                   {/* Full Name Field */}

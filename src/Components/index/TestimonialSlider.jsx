@@ -61,31 +61,29 @@ const TestimonialSlider = () => {
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
           {Testimonials.map((testimonial) => (
-            <div key={testimonial.id} className="min-w-full p-10 px-5">
-              <div className="flex flex-col items-center relative max-w-[1000px] mx-auto">
-                <div className="text-[80px] leading-none text-yellow-500 opacity-80 self-start -mb-5">&ldquo;</div>
-                
-                <div className="flex relative w-full px-10">
-                  <div className="relative z-10 flex-1 max-w-[45%] flex justify-center items-center">
-                    <img 
-                      src={testimonial.image} 
-                      alt={testimonial.name} 
-                      className="w-[280px] h-[280px] pb-[60px] pl-[60px]"
-                    />
-                  </div>
-                  
-                  <div className="flex-1 max-w-[65%] -ml-[10%] flex items-center">
-                    <div className="border border-white/30 p-8 pl-[15%] relative text-white">
-                      <p className="text-lg leading-relaxed mb-5">{testimonial.testimonial}</p>
-                      <p className="font-bold text-right">
-                        &mdash; {testimonial.name}, {testimonial.classYear}
-                      </p>
-                    </div>
-                  </div>
+            <div key={testimonial.id} className="min-w-full p-4 sm:p-10">
+              <div className="text-[60px] sm:text-[80px] leading-none text-yellow-500 opacity-80 self-start -mb-5">&ldquo;</div>
+              
+              <div className="flex flex-col sm:flex-row relative w-full px-4 sm:px-10">
+                <div className="relative z-10 w-full sm:max-w-[45%] flex justify-center items-center mb-6 sm:mb-0">
+                  <img 
+                    src={testimonial.image} 
+                    alt={testimonial.name} 
+                    className="w-[200px] h-[200px] sm:w-[280px] sm:h-[280px] pb-[30px] sm:pb-[60px] pl-[30px] sm:pl-[60px]"
+                  />
                 </div>
                 
-                <div className="text-[80px] leading-none text-yellow-500 opacity-80 self-end -mt-5">&rdquo;</div>
+                <div className="w-full sm:flex-1 sm:max-w-[65%] sm:-ml-[10%] flex items-center">
+                  <div className="border border-white/30 p-4 sm:p-8 sm:pl-[15%] relative text-white">
+                    <p className="text-base sm:text-lg leading-relaxed mb-5">{testimonial.testimonial}</p>
+                    <p className="font-bold text-right">
+                      &mdash; {testimonial.name}, {testimonial.classYear}
+                    </p>
+                  </div>
+                </div>
               </div>
+              
+              <div className="text-[60px] sm:text-[80px] leading-none text-yellow-500 opacity-80 self-end -mt-5">&rdquo;</div>
             </div>
           ))}
         </div>

@@ -67,12 +67,12 @@ const SeetaHighlights = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="flex py-10 relative overflow-hidden max-w-[90%] mx-auto">
-      <div ref={blueAccentRef} className="h-1 w-0 bg-blue-600 mb-5 absolute top-10 left-[200px]"></div>
+    <section ref={sectionRef} className="flex py-10 relative overflow-hidden w-full max-w-[95%] mx-auto">
+      <div ref={blueAccentRef} className="h-1 w-0 bg-blue-600 mb-5 absolute top-10 left-[100px] sm:left-[200px]"></div>
       
-      <div className="flex flex-col md:flex-row w-full mt-10 gap-10 px-5">
-        <div className="flex-1 max-w-[500px]">
-          <p ref={textRef} className="text-xl leading-relaxed text-gray-600 mt-8 overflow-hidden">
+      <div className="flex flex-col md:flex-row w-full mt-10 gap-6 md:gap-10 px-4 sm:px-5">
+        <div className="flex-1 max-w-full md:max-w-[500px]">
+          <p ref={textRef} className="text-lg sm:text-xl leading-relaxed text-gray-600 mt-8 overflow-hidden">
             As a result of their unwavering commitment
             to excellence, Seeta High Schools have
             earned a stellar reputation both locally and
