@@ -25,9 +25,8 @@ import Clubs from "./Pages/Clubs";
 import Sports from "./Pages/Sports";
 import Gallery from "./Pages/Gallery";
 import ContactUs from "./Pages/ContactUs";
-import Navbar from "./Components/Navbar1";
-import Footer from "./Components/Footer";
 import BackToTop from "./Components/BackToTop";
+import ScrollToTop from "./Components/ScrollToTop";
 
 function RequireAuth({ children }) {
   const { isAuthenticated } = useAuth();
@@ -42,8 +41,8 @@ const App = () => {
   return (
     <AuthProvider>
       <Router>
+        <ScrollToTop />
         <div className="min-h-screen bg-slate-900">
-          <Navbar />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} caseSensitive={false} />
@@ -84,7 +83,6 @@ const App = () => {
               }
             />
           </Routes>
-          <Footer />
           <BackToTop />
         </div>
       </Router>
