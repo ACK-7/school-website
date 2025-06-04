@@ -20,7 +20,8 @@ import {
   Send,
   Filter,
   Eye,
-  EyeOff
+  EyeOff,
+  X
 } from "lucide-react";
 
 const Message = () => {
@@ -34,6 +35,7 @@ const Message = () => {
   const [starredMessages, setStarredMessages] = useState(new Set());
   const [readMessages, setReadMessages] = useState(new Set());
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [imagePreview, setImagePreview] = useState(null);
   
   const itemsPerPage = 10;
 
@@ -141,6 +143,14 @@ const Message = () => {
     setSelectedMessage(null);
   };
 
+  const handleImagePreview = (imageUrl) => {
+    setImagePreview(imageUrl);
+  };
+
+  const handleCloseImagePreview = () => {
+    setImagePreview(null);
+  };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const now = new Date();
@@ -246,7 +256,46 @@ const Message = () => {
                     {new Date(selectedMessage.sent_at).toLocaleString()}
                   </div>
                 </div>
+
+                {/* Add Image Display Section */}
+                {selectedMessage.images && selectedMessage.images.length > 0 && (
+                  <div className="bg-gray-800/40 rounded-xl p-4">
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Attached Images</label>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      {selectedMessage.images.map((image, index) => (
+                        <div 
+                          key={index}
+                          className="relative aspect-square rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+                          onClick={() => handleImagePreview(image.url)}
+                        >
+                          <img 
+                            src={image.url} 
+                            alt={`Attachment ${index + 1}`}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
+
+              {/* Image Preview Modal */}
+              {imagePreview && (
+                <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
+                  <button
+                    onClick={handleCloseImagePreview}
+                    className="absolute top-4 right-4 text-white hover:text-gray-300"
+                  >
+                    <X size={24} />
+                  </button>
+                  <img 
+                    src={imagePreview} 
+                    alt="Preview" 
+                    className="max-h-[90vh] max-w-[90vw] object-contain"
+                  />
+                </div>
+              )}
 
               {/* Reply Section */}
               <div className="mt-8 pt-6 border-t border-gray-700/30 flex space-x-3">
@@ -490,6 +539,25 @@ const Message = () => {
                               <span className={`${!readMessages.has(submission.id) ? 'font-medium' : 'font-normal'}`}>Contact Form - </span>
                               {truncateMessage(submission.message)}
                             </div>
+                            {/* Add Image Preview Thumbnail */}
+                            {submission.images && submission.images.length > 0 && (
+                              <div className="flex space-x-2 mt-2">
+                                {submission.images.slice(0, 3).map((image, index) => (
+                                  <div key={index} className="w-8 h-8 rounded-lg overflow-hidden">
+                                    <img 
+                                      src={image.url} 
+                                      alt={`Thumbnail ${index + 1}`}
+                                      className="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                ))}
+                                {submission.images.length > 3 && (
+                                  <div className="w-8 h-8 rounded-lg bg-gray-700 flex items-center justify-center text-xs text-gray-300">
+                                    +{submission.images.length - 3}
+                                  </div>
+                                )}
+                              </div>
+                            )}
                           </div>
                         </div>
                         <div className="text-sm text-gray-500 flex-shrink-0 ml-4 bg-gray-800/30 px-2 py-1 rounded-lg">

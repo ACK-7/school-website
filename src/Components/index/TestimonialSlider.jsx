@@ -73,8 +73,8 @@ const TestimonialSlider = () => {
                   />
                 </div>
                 
-                <div className="w-full sm:flex-1 sm:max-w-[65%] sm:-ml-[10%] flex items-center">
-                  <div className="border border-white/30 p-4 sm:p-8 sm:pl-[15%] relative text-white">
+                <div className="w-full sm:flex-1 sm:max-w-[65%] sm:-ml-[15%] flex items-center">
+                  <div className="border border-white/30 p-4 sm:p-8 sm:pl-[20%] relative text-white">
                     <p className="text-base sm:text-lg leading-relaxed mb-5">{testimonial.testimonial}</p>
                     <p className="font-bold text-right">
                       &mdash; {testimonial.name}, {testimonial.classYear}
@@ -83,7 +83,9 @@ const TestimonialSlider = () => {
                 </div>
               </div>
               
-              <div className="text-[60px] sm:text-[80px] leading-none text-yellow-500 opacity-80 self-end -mt-5">&rdquo;</div>
+              <div className="flex justify-end w-full pr-4">
+                <div className="text-[60px] sm:text-[80px] leading-none text-yellow-500 opacity-80 -mt-5">&rdquo;</div>
+              </div>
             </div>
           ))}
         </div>

@@ -25,6 +25,7 @@ import Clubs from "./Pages/Clubs";
 import Sports from "./Pages/Sports";
 import Gallery from "./Pages/Gallery";
 import ContactUs from "./Pages/ContactUs";
+import Gallery1 from "./Pages/Dashboard/GalleryDash";
 import BackToTop from "./Components/BackToTop";
 import ScrollToTop from "./Components/ScrollToTop";
 
@@ -79,6 +80,14 @@ const App = () => {
               element={
                 <RequireAuth>
                   <Message />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/dashboard/gallery"
+              element={
+                <RequireAuth>
+                  <Gallery1 />
                 </RequireAuth>
               }
             />

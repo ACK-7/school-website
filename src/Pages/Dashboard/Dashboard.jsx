@@ -21,6 +21,7 @@ import {
   // FaUtensils,
   FaTrophy,
   FaCalendarCheck,
+  FaImages,
 } from "react-icons/fa";
 import { Users, UserCheck, UserX, TrendingUp, DollarSign, Calendar, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -30,12 +31,12 @@ const Dashboard = () => {
     { label: "Dashboard", icon: <FaTachometerAlt />, path: "/dashboard" },
     { label: "Students", icon: <FaUserGraduate />, path: "/dashboard/students" },
     { label: "Teachers", icon: <FaChalkboardTeacher />, path: "/dashboard/teachers" },  
-    { label: "Classes", icon: <FaBook />, path: "/dashboard/classes" },
-    { label: "Attendance", icon: <FaCalendarCheck />, path: "/dashboard/attendance" },
-    { label: "Grades", icon: <FaClipboardList />, path: "/dashboard/grades" },
+    // { label: "Classes", icon: <FaBook />, path: "/dashboard/classes" },
+    // { label: "Attendance", icon: <FaCalendarCheck />, path: "/dashboard/attendance" },
+    // { label: "Grades", icon: <FaClipboardList />, path: "/dashboard/grades" },
     { label: "Events", icon: <FaCalendarAlt />, path: "/dashboard/events" },
     { label: "Messages", icon: <FaEnvelope />, path: "/dashboard/messages" },
-    { label: "Reports", icon: <FaChartLine />, path: "/dashboard/reports" },
+    { label: "Gallery", icon: <FaImages />, path: "/dashboard/gallery" },
     { label: "Settings", icon: <FaCog />, path: "/dashboard/settings" },
     { label: "Log out", icon: <FaSignOutAlt />, path: "/" },
   ];
